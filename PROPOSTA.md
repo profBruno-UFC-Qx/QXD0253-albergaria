@@ -1,21 +1,18 @@
-🏁 NOME DO PROJETO
-
-# Albergaria
+# :checkered_flag: Albergaria
 
 **Descrição breve:** O Albergaria é um site web que permite aos usuários buscar imóveis disponíveis para aluguel por meio de um **mapa interativo com pins**, visualizando a localização exata de cada anúncio, filtrando por preço, tipo de imóvel e outras características, e entrando em contato diretamente com o anunciante.
 
 #Moradia #Aluguel #Tecnologia #Mapas #InclusãoSocial
 
-## 🧑‍💻 Membros da equipe
+## :technologist: Membros da equipe
 
 | Matrícula | Nome |
 |---|---|
 | 5709705 | Cesário Porto Magalhães Filho |
-| *(preencher)* | *(preencher)* |
-| *(preencher)* | *(preencher)* |
+| 578395  | Cauã Evangelista Pitta Lima |
+| 578046 | Noemi Alves Rodrigues |
 
-## 💡 Objetivo Geral
-
+## :bulb: Objetivo Geral
 Desenvolver um site web que facilite a busca e a localização de imóveis disponíveis para aluguel, permitindo que os usuários visualizem, em um **mapa interativo com pins**, os locais anunciados de acordo com sua localização, preço e características desejadas.
 
 O projeto terá inicialmente como foco a **locação de imóveis** (casas, apartamentos, quartos, kitnets, entre outros), permitindo que os usuários encontrem opções disponíveis, consultem informações sobre cada anúncio, visualizem sua localização exata no mapa e entrem em contato com o anunciante.
@@ -24,8 +21,7 @@ A plataforma também possibilitará que os anunciantes cadastrem seus imóveis, 
 
 Embora a primeira versão seja direcionada à **locação**, a plataforma será desenvolvida de forma **modular e escalável**, possibilitando sua expansão futura para outras modalidades, como venda de imóveis, temporada, imóveis comerciais, terrenos e outras categorias do mercado imobiliário.
 
-## 👀 Público-Alvo
-
+## :eyes: Público-Alvo
 ### Usuários (buscadores de imóveis)
 
 Pessoas que procuram um imóvel para alugar e possuem dificuldade para encontrar opções compatíveis com sua localização, faixa de preço ou tipo de imóvel desejado.
@@ -38,7 +34,20 @@ Inicialmente, proprietários, imobiliárias ou corretores que desejam divulgar s
 
 Com a expansão da plataforma, outros tipos de anunciantes (venda, temporada, imóveis comerciais) poderão utilizar o sistema para divulgação e gerenciamento de seus anúncios.
 
-## 🤝 Papéis ou tipos de usuário da aplicação
+## :star2: Impacto Esperado
+* **Social:** Facilitar o acesso da população a imóveis disponíveis para locação, especialmente em regiões onde a busca costuma ser difícil ou pouco centralizada.
+
+* **Acessibilidade:** Aumentar a visibilidade de imóveis com condições populares ou facilidades de negociação, e tornar a busca mais intuitiva por meio do mapa.
+
+* **Para anunciantes:** Fornecer uma ferramenta simples para divulgação de imóveis e gerenciamento de anúncios.
+
+* **Tecnológico:** Centralizar a busca por imóveis, sua localização geográfica e o contato com anunciantes em uma única plataforma.
+
+* **Escalabilidade:** Criar uma plataforma inicialmente voltada para locação, mas estruturada para incorporar progressivamente outras modalidades do mercado imobiliário.
+
+* **Impacto futuro:** Transformar a plataforma em um ambiente abrangente para localização e gerenciamento de imóveis de diferentes finalidades, mantendo como um dos seus principais objetivos facilitar o acesso à moradia por meio de uma busca visual, rápida e centralizada.
+
+## :people_holding_hands: Papéis ou tipos de usuário da aplicação
 
 A aplicação contará com diferentes tipos de usuário, cada um com um nível de acesso distinto. Algumas funcionalidades serão acessíveis a qualquer pessoa (mesmo sem login), enquanto outras serão restritas a usuários cadastrados e autenticados.
 
@@ -70,7 +79,7 @@ A aplicação contará com diferentes tipos de usuário, cada um com um nível d
   * Gerencia categorias e tipos de imóveis disponíveis na plataforma.
   * Acompanha estatísticas gerais de uso da plataforma.
 
-## 🚩 Principais funcionalidades da aplicação
+## :triangular_flag_on_post:	 Principais funcionalidades da aplicação
 
 > As funcionalidades abaixo indicam, entre parênteses, quais são **acessíveis a todos** (incluindo visitantes não logados) e quais são **restritas a usuários logados** (usuário ou anunciante).
 
@@ -149,60 +158,8 @@ Entre as possíveis áreas de expansão estão:
 
 Essa expansão poderá ocorrer por meio do cadastro de novas categorias de imóveis, tipos de anúncio e características específicas de cada modalidade, mantendo o sistema centralizado em uma única plataforma.
 
-## Etapas de Desenvolvimento
 
-1. **Levantamento de Requisitos**
-
-   * Entrevistas com potenciais usuários e anunciantes.
-   * Identificação das principais necessidades de busca e localização.
-   * Definição dos requisitos do sistema.
-   * Identificação das funcionalidades necessárias para futuras modalidades.
-
-2. **Design e Modelagem**
-
-   * Criação das interfaces para usuários e anunciantes.
-   * Definição do fluxo de busca no mapa e visualização de anúncios.
-   * Modelagem do banco de dados (imóveis, localização, anunciantes).
-   * Estruturação do sistema para permitir o cadastro de diferentes categorias de imóveis.
-
-3. **Desenvolvimento do MVP**
-
-   * Cadastro de usuários.
-   * Cadastro de anunciantes e imóveis.
-   * Integração do mapa interativo com pins.
-   * Busca e filtros.
-   * Gerenciamento de anúncios.
-   * Contato entre usuário e anunciante.
-
-4. **Testes e Validação**
-
-   * Testes com usuários buscando imóveis.
-   * Testes com anunciantes cadastrando imóveis.
-   * Avaliação da experiência de utilização do mapa e dos filtros.
-   * Correção de problemas e ajustes nas funcionalidades.
-
-5. **Expansão**
-
-   * Avaliação dos resultados obtidos com o MVP.
-   * Inclusão de novas modalidades (venda, temporada, comercial).
-   * Adaptação das funcionalidades para diferentes tipos de anúncio.
-   * Expansão gradual da plataforma para outras regiões e categorias.
-
-## 🌟 Impacto Esperado
-
-* **Social:** Facilitar o acesso da população a imóveis disponíveis para locação, especialmente em regiões onde a busca costuma ser difícil ou pouco centralizada.
-
-* **Acessibilidade:** Aumentar a visibilidade de imóveis com condições populares ou facilidades de negociação, e tornar a busca mais intuitiva por meio do mapa.
-
-* **Para anunciantes:** Fornecer uma ferramenta simples para divulgação de imóveis e gerenciamento de anúncios.
-
-* **Tecnológico:** Centralizar a busca por imóveis, sua localização geográfica e o contato com anunciantes em uma única plataforma.
-
-* **Escalabilidade:** Criar uma plataforma inicialmente voltada para locação, mas estruturada para incorporar progressivamente outras modalidades do mercado imobiliário.
-
-* **Impacto futuro:** Transformar a plataforma em um ambiente abrangente para localização e gerenciamento de imóveis de diferentes finalidades, mantendo como um dos seus principais objetivos facilitar o acesso à moradia por meio de uma busca visual, rápida e centralizada.
-
-## 📆 Entidades ou tabelas do sistema
+## :spiral_calendar: Entidades ou tabelas do sistema
 
 * **Usuário** — dados de cadastro, credenciais de acesso, tipo de perfil (usuário, anunciante, administrador).
 * **Anunciante** — dados complementares de quem publica imóveis (pessoa física ou imobiliária), verificação de conta.
