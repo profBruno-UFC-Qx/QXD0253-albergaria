@@ -172,3 +172,25 @@ Essa expansão poderá ocorrer por meio do cadastro de novas categorias de imóv
 * **Contato/Mensagem** — histórico de mensagens trocadas entre usuário e anunciante sobre um imóvel.
 * **Solicitação de Visita** — pedidos de visita feitos pelo usuário, com status (pendente, aceita, recusada, realizada).
 * **Denúncia/Moderação** — registros de denúncias de anúncios, usadas pelo administrador na moderação de conteúdo.
+
+## Nota de Esclarecimento
+* Como se caracteriza como extensão? Como vocês pretendem fazer isso?
+
+O projeto "Albergaria" não irá se limitar a desenvolver um sistema apenas para os estudantes universitários. Ele será construído com a comunidade externa em um processo de troca contínua entre a equipe de desenvolvimento e o público atendido. O problema que o projeto busca resolver, a dificuldade de encontrar moradia para alugar, é um problema real da comunidade, e é ela quem orienta as decisões do projeto.
+ 
+A interação com a comunidade ocorrerá nas seguintes etapas:
+ 
+1. **Diagnóstico:** entrevistas ou questionários com pessoas que buscam imóveis para alugar e com proprietários, corretores e imobiliárias, para entender as dificuldades reais.
+2. **Detalhamento de Busca:** os filtros de busca e os critérios de destaque para imóveis com condições especiais (valores populares, facilidades de negociação) serão definidos a partir do que a comunidade relatar.
+3. **Validação:** apresentação de protótipos e testes de usabilidade com usuários e anunciantes reais, com ajustes a partir do feedback recebido.
+4. **Piloto:** cadastro de imóveis reais de anunciantes parceiros e uso da plataforma por pessoas da comunidade.
+5. **Avaliação e devolutiva:** coleta de feedback após o piloto e apresentação dos resultados aos participantes, fechando o ciclo de troca entre universidade e comunidade.
+
+* Quem serão as partes envolvidas no processo de concepção?
+
+| Parte | Papel no processo |
+|---|---|
+| Equipe discente (Cesário Porto Magalhães Filho, Cauã Evangelista Pitta Lima e Noemi Alves Rodrigues) | Levantamento de requisitos, desenvolvimento, testes e devolutivas à comunidade |
+| Professor Bruno Góis | Orientação acadêmica e técnica |
+| Pessoas que buscam imóveis (estudantes, famílias, trabalhadores) | Público-alvo principal: relatam dificuldades, testam e validam a plataforma |
+| Proprietários, corretores e imobiliárias locais | Anunciantes: ajudam a definir o cadastro de imóveis e participam do piloto |
