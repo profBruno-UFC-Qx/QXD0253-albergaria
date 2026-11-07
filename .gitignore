@@ -1,0 +1,38 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+__pycache__/
+.venv/
+venv/
+
+# Build and coverage output
+dist/
+build/
+coverage/
+.cache/
+.tmp/
+.strapi/
+*.py[cod]
+
+# Local data and generated uploads
+*.db
+*.sqlite
+*.sqlite3
+uploads/*
+!uploads/.gitkeep
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Local tooling
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
