@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "anunciantes",
+  "info": {
+    "singularName": "anunciante",
+    "pluralName": "anunciantes",
+    "displayName": "anunciante"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "maxLength": 150,
+      "required": true
+    },
+    "telefone": {
+      "type": "string",
+      "required": true
+    },
+    "status_verificacao": {
+      "type": "enumeration",
+      "default": "PENDENTE",
+      "enum": [
+        "PENDENTE",
+        "VERIFICADO",
+        "REJEITADO"
+      ]
+    },
+    "usuario": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "imovels": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::imovel.imovel"
+    },
+    "imovel": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::imovel.imovel",
+      "mappedBy": "anunciante"
+    }
+  }
+}

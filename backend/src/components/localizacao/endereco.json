@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_localizacao_enderecos",
+  "info": {
+    "displayName": "endereco",
+    "icon": "pinMap"
+  },
+  "options": {},
+  "attributes": {
+    "cidade": {
+      "type": "string",
+      "required": true
+    },
+    "bairro": {
+      "type": "string",
+      "required": true
+    },
+    "logradouro": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": "decimal",
+      "required": true
+    },
+    "longitude": {
+      "type": "decimal",
+      "required": true
+    },
+    "exibir_localizacao_exata": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "config": {}
+}
