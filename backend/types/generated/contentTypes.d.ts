@@ -443,6 +443,152 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAnuncianteAnunciante extends Struct.CollectionTypeSchema {
+  collectionName: 'anunciantes';
+  info: {
+    displayName: 'anunciante';
+    pluralName: 'anunciantes';
+    singularName: 'anunciante';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    imovel: Schema.Attribute.Relation<'oneToOne', 'api::imovel.imovel'>;
+    imovels: Schema.Attribute.Relation<'oneToMany', 'api::imovel.imovel'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::anunciante.anunciante'
+    > &
+      Schema.Attribute.Private;
+    nome: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    status_verificacao: Schema.Attribute.Enumeration<
+      ['PENDENTE', 'VERIFICADO', 'REJEITADO']
+    > &
+      Schema.Attribute.DefaultTo<'PENDENTE'>;
+    telefone: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    usuario: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiFavoritoFavorito extends Struct.CollectionTypeSchema {
+  collectionName: 'favoritos';
+  info: {
+    displayName: 'favorito';
+    pluralName: 'favoritos';
+    singularName: 'favorito';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    imovels: Schema.Attribute.Relation<'oneToMany', 'api::imovel.imovel'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::favorito.favorito'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    usuario: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiImovelImovel extends Struct.CollectionTypeSchema {
+  collectionName: 'imovels';
+  info: {
+    displayName: 'imovel';
+    pluralName: 'imovels';
+    singularName: 'imovel';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    anunciante: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::anunciante.anunciante'
+    >;
+    banheiros: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data_publicacao: Schema.Attribute.DateTime;
+    descricao: Schema.Attribute.Blocks & Schema.Attribute.Required;
+    endereco: Schema.Attribute.Component<'localizacao.endereco', false>;
+    favorito: Schema.Attribute.Relation<'manyToOne', 'api::favorito.favorito'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::imovel.imovel'
+    > &
+      Schema.Attribute.Private;
+    metragem: Schema.Attribute.Decimal;
+    midia: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    preco: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    publishedAt: Schema.Attribute.DateTime;
+    quartos: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    slug: Schema.Attribute.UID<'titulo'>;
+    status_imovel: Schema.Attribute.Enumeration<
+      ['ATIVO', 'PAUSADO', 'ALUGADO', 'INDISPONIVEL']
+    > &
+      Schema.Attribute.DefaultTo<'ATIVO'>;
+    tipo: Schema.Attribute.Enumeration<
+      ['APARTAMENTO', 'CASA', 'KITNET', 'QUARTO', 'OUTRO']
+    >;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -913,12 +1059,14 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    favorito: Schema.Attribute.Relation<'oneToOne', 'api::favorito.favorito'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    nome: Schema.Attribute.String & Schema.Attribute.Required;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
@@ -931,6 +1079,10 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    tipo_perfil: Schema.Attribute.Enumeration<
+      ['USUARIO', 'ANUNCIANTE', 'ADMIN']
+    > &
+      Schema.Attribute.DefaultTo<'USUARIO'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -954,6 +1106,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::anunciante.anunciante': ApiAnuncianteAnunciante;
+      'api::favorito.favorito': ApiFavoritoFavorito;
+      'api::imovel.imovel': ApiImovelImovel;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
