@@ -1,9 +1,21 @@
-* {
-  box-sizing: border-box;
+.bg-claro{
+  background-color: #90ee90;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: #1f2937;
+.bg-site{
+  background-color: #e2fee2;
+}
+
+.card-login{
+  width: 100%;
+  max-width: 420px;
+}
+
+.card-cadatro{
+  width: 100%;
+  max-width: 420px;
+}
+
+.btn-primario{
+  background-color: green;
 }

@@ -2,13 +2,45 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Albergaria</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css" />
   </head>
-  <body>
-    <main><h1>Entrar</h1></main>
+  <body class="bg-site">
+    <main class="d-flex justify-content-center align-items-center vh-100">
+      <div class="card card-login shadow-sm p-md-5 rounded-4">
+        
+        <div class="text-center mb-4">
+          <h1 class="h3">Albergaria</h1>
+          <p>Entrar na sua conta</p>
+        </div>
+
+        <form class="formulario">
+          <div class="mb-3">
+            <div class="input-group">
+              <input type="text" id="txtUsuario" class="form-control" placeholder="E-mail ou usuário">
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="input-group">
+              <input type="password" id="txtSenha" class="form-control" placeholder="Senha">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primario w-100 text-white mb-3">Entrar</button>
+          <div class="text-center mb-4">
+            <a href="#" class="text-decoration-none  small">Esqueci minha senha</a>
+          </div>
+          <div class="position-relative text-center mb-4">
+            <hr class="text-muted"><span class="position-absolute top-50 start-50 translate-middle px-2 bg-white text-muted small">ou</span>
+          </div>
+          <div class="text-center">
+            <p class="small text-muted mb-0">Não tem uma conta? <a href="#" class="text-decoration-none text-primary-custom fw-semibold">Criar conta</a></p>
+          </div>
+        </form>
+      </div>
+    </main>
     <script src="./js/auth.js"></script>
     <script src="./js/main.js"></script>
-  </body>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"></script>
 </html>
