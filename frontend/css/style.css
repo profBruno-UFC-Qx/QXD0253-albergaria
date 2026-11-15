@@ -8,12 +8,28 @@
 
 .card-login{
   width: 100%;
-  max-width: 420px;
 }
 
-.card-cadatro{
+.card-cadastro{
   width: 100%;
-  max-width: 420px;
+}
+
+@media (min-width: 425px) {
+  .card-login {
+    width: 400px;
+  }
+  .card-cadastro{
+    width: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-login {
+    width: 800px;
+  }
+  .card-cadastro{
+    width: 800px;
+  }
 }
 
 .btn-primario{
