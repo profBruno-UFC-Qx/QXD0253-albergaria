@@ -1,43 +1,80 @@
-// 1. Inicializa o mapa centralizado (ex: Quixadá)
-const mapa = L.map('map').setView([-4.9714, -39.0153], 14);
+import { registrarUsuario, fazerLogin, verificarAutenticacao } from './auth.js';
 
-// 2. Adiciona a camada visual do OpenStreetMap
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; OpenStreetMap contributors'
-}).addTo(mapa);
+const elementoMapa = document.getElementById('map');
+if (elementoMapa) {
+  const mapa = L.map(elementoMapa).setView([-4.9714, -39.0153], 14);
 
-// 3. Lista de imóveis (poderia vir de uma API ou base de dados no futuro)
-const imoveis = [
-  { 
-    lat: -4.9700, 
-    lng: -39.0100, 
-    titulo: "Apartamento no Centro", 
-    preco: "R$ 1.250/mês" 
-  },
-  { 
-    lat: -4.9750, 
-    lng: -39.0200, 
-    titulo: "Casa no Aeroporto", 
-    preco: "R$ 1.800/mês" 
-  },
-  { 
-    lat: -4.9680, 
-    lng: -39.0250, 
-    titulo: "Kitnet Universitária", 
-    preco: "R$ 600/mês" 
-  }
-];
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(mapa);
 
-// 4. Percorre a lista e adiciona cada pin automaticamente no mapa
-imoveis.forEach(imovel => {
-  const marker = L.marker([imovel.lat, imovel.lng]).addTo(mapa);
+  const imoveis = [
+    { lat: -4.9700, lng: -39.0100, titulo: 'Apartamento no Centro', preco: 'R$ 1.250/mês' },
+    { lat: -4.9750, lng: -39.0200, titulo: 'Casa no Aeroporto', preco: 'R$ 1.800/mês' },
+    { lat: -4.9680, lng: -39.0250, titulo: 'Kitnet Universitária', preco: 'R$ 600/mês' }
+  ];
+
+  imoveis.forEach((imovel) => {
+    const marker = L.marker([imovel.lat, imovel.lng]).addTo(mapa);
+    marker.bindPopup(`
+      <div style="font-family: sans-serif;">
+        <strong>${imovel.titulo}</strong><br>
+        <span style="color: #1b4d3e; font-weight: bold;">${imovel.preco}</span>
+      </div>
+    `);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const usuarioAtual = await verificarAutenticacao();
   
-  // Adiciona um balão informativo (popup) ao clicar no pin
-  marker.bindPopup(`
-    <div style="font-family: sans-serif;">
-      <strong>${imovel.titulo}</strong><br>
-      <span style="color: #1b4d3e; font-weight: bold;">${imovel.preco}</span>
-    </div>
-  `);
+  if (usuarioAtual) {
+    console.log('Usuário logado:', usuarioAtual.username);
+  } else {
+    console.log('Nenhum usuário logado.');
+  }
+
+  const formCadastro = document.getElementById('form-cad');
+  if (formCadastro) {
+    formCadastro.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nome = document.getElementById('txtNome').value;
+      const sobrenome = document.getElementById('txtSobrenome').value;
+      const username = document.getElementById('txtUsuario').value;
+      const email = document.getElementById('txtEmail').value;
+      const telefone = document.getElementById('txtTelefone').value;
+      const password = document.getElementById('txtSenha').value;
+      const tipo_perfil = document.getElementById('rdAnunciante').checked
+        ? 'ANUNCIANTE'
+        : 'USUARIO';
+
+      try {
+        await registrarUsuario(nome, sobrenome, username, email, telefone, password, tipo_perfil);
+        alert('Cadastro realizado com sucesso! Faça login para continuar.');
+        formCadastro.reset();
+      } catch (error) {
+        alert(`Falha no cadastro: ${error.message}`);
+      }
+    });
+  }
+
+  const formLogin = document.querySelector('form.formulario:not(#form-cad)');
+  if (formLogin) {
+    formLogin.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('txtUsuario').value;
+      const password = document.getElementById('txtSenha').value;
+
+      try {
+        await fazerLogin(email, password);
+        alert('Login realizado com sucesso!');
+        window.location.href = './index.html';
+      } catch (error) {
+        alert(`Falha no login: ${error.message}`);
+      }
+    });
+  }
 });

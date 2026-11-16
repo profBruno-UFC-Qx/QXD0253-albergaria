@@ -71,6 +71,10 @@
       "type": "string",
       "required": true
     },
+    "sobrenome": {
+      "type": "string",
+      "required": true
+    },
     "tipo_perfil": {
       "type": "enumeration",
       "default": "USUARIO",
@@ -85,6 +89,10 @@
       "relation": "oneToOne",
       "target": "api::favorito.favorito",
       "mappedBy": "usuario"
+    },
+    "telefone": {
+      "type": "string",
+      "required": true
     }
   }
 }

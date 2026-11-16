@@ -1079,6 +1079,8 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    sobrenome: Schema.Attribute.String & Schema.Attribute.Required;
+    telefone: Schema.Attribute.String & Schema.Attribute.Required;
     tipo_perfil: Schema.Attribute.Enumeration<
       ['USUARIO', 'ANUNCIANTE', 'ADMIN']
     > &

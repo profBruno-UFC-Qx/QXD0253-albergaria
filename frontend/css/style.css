@@ -6,14 +6,6 @@
   background-color: #e2fee2;
 }
 
-.card-login{
-  width: 100%;
-}
-
-.card-cadastro{
-  width: 100%;
-}
-
 @media (min-width: 425px) {
   .card-login {
     width: 400px;
@@ -32,6 +24,13 @@
   }
 }
 
-.btn-primario{
+.btn-primario {
   background-color: green;
+  border-color: green;
+}
+
+.btn-primario:hover,
+.btn-primario:focus {
+  background-color: #006400;
+  border-color: #004d00;
 }
