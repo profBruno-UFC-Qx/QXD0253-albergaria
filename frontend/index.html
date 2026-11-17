@@ -15,66 +15,84 @@
   <header class="border-bottom bg-claro">
     <nav class="navbar">
       <div class="container">
-        <a class="navbar-brand fw-bold" href="./index.html">
-          Albergaria
-        </a>
-        <a class="text-decoration-none text-dark">Início</a>
-        <a class="text-decoration-none text-dark">Buscar Imóveis</a>
-        <div class="d-flex justify-content-center" id="navbarNav">
-          <a href="#" class="btn">Entrar</a>
+        <a class="navbar-brand fw-bold" href="./index.html">Albergaria</a>
+        <div class="d-flex justify-content-center" id="anunciar">
+          <a href="./painel.html" class="btn">Anunciar Imóvel</a>
         </div>
       </div>
     </nav>
   </header>
-  <section class="position-relative w-100">
-    <div class="banner-img d-flex justify-content-center align-items-center position-relative">
-      <img src="./images/imagem4.jpg" id="img-destaque" class="position-absolute">
-      <form class="pesquisa d-flex gap-2 w-50 position-relative z-2">
-        <input type="text" id="txtPesquisa" class="form-pesquisa" placeholder="Pesquisar...">
-        <button type="submit" class="btn btn-primario text-white">Pesquisar</button>
-      </form>
-    </div>
-  </section>
-  <main>
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h4 class="fw-bold py-3">Imóveis em destaque</h2>
-    </div>
+  
+  <div class="conteiner-fluid">
     <div class="row">
-      <div class="card-aptos col-md-4">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="position-relative">
-            <img src="./images/image1.jpeg" class="img-aptos card-img-top">
+      <aside class="col-12 col-md-3 p-3 border-end">
+        <h5 class="fw-bold">Filtros</h5>
+        <form>
+          <div class="mb-2">
+            <label for="cidade" class="form-label">Cidade</label>
+            <select id="cidade" class="form-select">
+              <option>Quixadá</option>
+            </select>
           </div>
-          <div class="card-body">
-            <h5 class="card-title fw-bold fs-6">Apartamento no Centro</h5>
-            <p class="text-success fw-bold fs-5 mb-3">R$ 1.250/mês</p>
+          <div class="mb-2">
+            <label for="bairro" class="form-label">Bairro</label>
+            <select id="bairro" class="form-select">
+              <option>Todos os bairros</option>
+            </select>
           </div>
-        </div>
-      </div>
-      <div class="card-aptos col-md-4">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="position-relative">
-            <img src="./images/image2.jpeg" class="img-aptos card-img-top">
+          <div class="mb-2">
+            <label for="tipo" class="form-label">Tipo</label>
+              <select id="tipo" class="form-select">
+                <option>Todos os tipos</option>
+              </select>
           </div>
-          <div class="card-body">
-            <h5 class="card-title fw-bold fs-6">Casa no Aeroporto</h5>
-            <p class="text-success fw-bold fs-5 mb-3">R$ 1.800/mês</p>
+          <div class="row mb-2">
+            <div class="col-6">
+              <label for="precoMin" class="form-label">Preço mínimo</label>
+              <input type="number" id="precoMin" class="form-control" placeholder="R$ 0">
+            </div>
+            <div class="col-6">
+              <label for="precoMax" class="form-label">Preço máximo</label>
+              <input type="number" id="precoMax" class="form-control" placeholder="R$ 1.000">
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="card-aptos col-md-4">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="position-relative">
-            <img src="./images/image3.jpeg" class="img-aptos card-img-top">
+          <div class="mb-2">
+            <label for="quartos" class="form-label">Quartos</label>
+            <select id="quartos" class="form-select">
+              <option>1</option>
+              <option>2</option>
+              <option>3+</option>
+            </select>
           </div>
-          <div class="card-body">
-            <h5 class="card-title fw-bold fs-6">Kitnet no Planalto</h5>
-            <p class="text-success fw-bold fs-5 mb-3">R$ 700/mês</p>
+            <button type="submit" class="btn btn-success w-100" id="btn-filtrar">Aplicar filtros</button>
+        </form>
+      </aside>
+      <main class="col-12 col-md-9 p-3">
+        <section class="mb-4">
+          <div class="mb-3">
+            <div id="map" class="rounded"></div>
           </div>
-        </div>
-      </div>
+        </section>
+        <section>
+          <h2 class="h6 fw-bold mb-3">Resultados (12 imóveis)</h2>
+          <article class="card mb-3">
+            <div class="row g-0">
+              <div class="col-4">
+                <img src="./images/image1.jpeg" class="img-fluid rounded-start h-100 object-fit-cover" alt="Apartamento no Centro">
+              </div>
+              <div class="col-8">
+                <div class="card-body">
+                  <h3 class="card-title h6">Apartamento no Centro</h3>
+                  <p class="text-success fw-bold mb-1">R$ 1.250/mês</p>
+                  <small class="text-muted">2 quartos · 1 banheiro · 68 m²</small>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+    </main>
     </div>
-  </main>
+  </div>
   <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
