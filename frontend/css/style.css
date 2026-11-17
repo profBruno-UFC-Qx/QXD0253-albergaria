@@ -6,6 +6,26 @@
   background-color: #e2fee2;
 }
 
+.banner-img {
+    width: 100%;
+    height:200px;
+    overflow: hidden;    
+}
+
+.banner-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-aptos{
+  height: 200px;
+  object-fit: cover;
+}
+.card-aptos{
+  margin: 10px;
+}
+
 @media (min-width: 425px) {
   .card-login {
     width: 400px;
@@ -22,6 +42,7 @@
   .card-cadastro{
     width: 800px;
   }
+  
 }
 
 .btn-primario {

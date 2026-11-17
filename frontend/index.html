@@ -1,53 +1,84 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Albergaria</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <link rel="stylesheet" href="./css/style.css" />
-  </head>
-  <body>
-    <!-- 
-  ====================================================================================
-  EXPLICAÇÃO TÉCNICA: Leaflet.js + OpenStreetMap (Alternativa ao Google Maps)
-  ====================================================================================
-  
-  1. O que é o Leaflet?
-     - É uma biblioteca de código aberto (Open Source) em JavaScript extremamente leve 
-       e rápida, usada para criar mapas interativos em páginas web.
-     - Funciona perfeitamente em computadores e telemóveis (Mobile First).
 
-  2. O que é o OpenStreetMap (OSM)?
-     - É essencialmente o "Wikipedia dos mapas": um mapa do mundo colaborativo, criado 
-       e mantido por uma comunidade global de forma gratuita e livre.
-     - É ele que fornece as imagens visuais (as "tiles" ou peças do mapa) que o Leaflet exibe.
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | Albergaria</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
 
-  3. Como funciona a integração no projeto (Ex: Albergaria)?
-     - A Estrutura (HTML): Criamos apenas uma tag <div> comum com um ID (ex: id="map") 
-       e definimos uma altura explícita (ex: height: 450px) para que a caixa apareça.
-     - A Biblioteca (Leaflet CSS e JS): Importamos os ficheiros da biblioteca via CDN 
-       no nosso cabeçalho e corpo da página.
-     - A Lógica (JavaScript): No ficheiro .js, inicializamos o mapa com "L.map()", 
-       conectamos a camada visual do OpenStreetMap com "L.tileLayer()" e adicionamos 
-       os marcadores (pins) dinamicamente usando um array de objetos dos imóveis com "L.marker()".
+<body class="bg-site">
+  <header class="border-bottom bg-claro">
+    <nav class="navbar">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="./index.html">
+          Albergaria
+        </a>
+        <a class="text-decoration-none text-dark">Início</a>
+        <a class="text-decoration-none text-dark">Buscar Imóveis</a>
+        <div class="d-flex justify-content-center" id="navbarNav">
+          <a href="#" class="btn">Entrar</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <section class="position-relative w-100">
+    <div class="banner-img d-flex justify-content-center align-items-center position-relative">
+      <img src="./images/imagem4.jpg" id="img-destaque" class="position-absolute">
+      <form class="pesquisa d-flex gap-2 w-50 position-relative z-2">
+        <input type="text" id="txtPesquisa" class="form-pesquisa" placeholder="Pesquisar...">
+        <button type="submit" class="btn btn-primario text-white">Pesquisar</button>
+      </form>
+    </div>
+  </section>
+  <main>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="fw-bold py-3">Imóveis em destaque</h2>
+    </div>
+    <div class="row">
+      <div class="card-aptos col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="position-relative">
+            <img src="./images/image1.jpeg" class="img-aptos card-img-top">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold fs-6">Apartamento no Centro</h5>
+            <p class="text-success fw-bold fs-5 mb-3">R$ 1.250/mês</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-aptos col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="position-relative">
+            <img src="./images/image2.jpeg" class="img-aptos card-img-top">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold fs-6">Casa no Aeroporto</h5>
+            <p class="text-success fw-bold fs-5 mb-3">R$ 1.800/mês</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-aptos col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="position-relative">
+            <img src="./images/image3.jpeg" class="img-aptos card-img-top">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold fs-6">Kitnet no Planalto</h5>
+            <p class="text-success fw-bold fs-5 mb-3">R$ 700/mês</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script type="module" src="./js/main.js"></script>
+</body>
 
-  4. Vantagens para o Projeto Académico:
-     - 100% Gratuito: Não exige criação de faturamento, inserção de cartão de crédito 
-       ou chaves de API restritas (evitando erros comuns de bloqueio como o do Google Cloud).
-     - Modular e Limpo: Mantém o código HTML organizado, deixando toda a lógica dos pins 
-       armazenada no arquivo JavaScript.
-  ====================================================================================
--->
-    <main>
-      <h1>Albergaria</h1>
-      <p>Encontre seu próximo imóvel.</p>
-      <div id="map" style="width: 100%; height: 400px; border-radius: 12px;"></div>
-
-    </main>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script type="module" src="./js/main.js"></script>
-  </body>
 </html>
