@@ -24,11 +24,13 @@
 }
 
 .img-rosto{
+  width: 100%;
   height: 360px;
   object-fit: cover;
 }
 
 .img-exibicao{
+  width: 100%;
   height: 112px;
   object-fit: cover;
 }
