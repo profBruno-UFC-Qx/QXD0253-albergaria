@@ -79,3 +79,14 @@
   height: 220px;
   border-radius: 12px;
 }
+
+#map-marcador{
+  height: 220px;
+  border-radius: 12px;
+}
+
+.drop_midia{
+  min-height: 260px; 
+  cursor: pointer; 
+  border-style: dashed !important;
+}

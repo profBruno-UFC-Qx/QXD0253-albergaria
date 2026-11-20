@@ -2,6 +2,7 @@ import { registrarUsuario, fazerLogin, verificarAutenticacao } from './auth.js';
 
 const elementoMapa = document.getElementById('map');
 const mapDetalhes = document.getElementById('map-detalhes');
+const mapMarcador = document.getElementById('map-marcador');
 
 if (elementoMapa) {
   const mapa = L.map(elementoMapa).setView([-4.9714, -39.0153], 14);
@@ -52,6 +53,26 @@ if (mapDetalhes) {
     `);
   });
 }
+
+if (mapMarcador) {
+  const mapa = L.map(mapMarcador).setView([-4.9714, -39.0153], 14);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(mapa);
+  let marcador;
+  mapa.on('click', (e) =>{
+    const {lat, lng} = e.latlng;
+    document.getElementById('latitude').value = lat.toFixed(6);
+    document.getElementById('longitude').value = lng.toFixed(6);
+    if(marcador){
+      marcador.setLatLng(e.latlng);
+    }else{
+      marcador = L.marker(e.latlng).addTo(mapa);
+    }
+  });
+}
+
 
 document.addEventListener('DOMContentLoaded', async () => {
   const usuarioAtual = await verificarAutenticacao();
