@@ -77,11 +77,10 @@
     },
     "tipo_perfil": {
       "type": "enumeration",
-      "default": "USUARIO",
+      "default": "COMUM",
       "enum": [
-        "USUARIO",
-        "ANUNCIANTE",
-        "ADMIN"
+        "COMUM",
+        "ANUNCIANTE"
       ]
     },
     "favorito": {

@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "anuncios",
+  "info": {
+    "singularName": "anuncio",
+    "pluralName": "anuncios",
+    "displayName": "anuncio"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "descricao": {
+      "type": "blocks"
+    },
+    "preco": {
+      "type": "decimal",
+      "required": true
+    },
+    "inicio_publicacao": {
+      "type": "datetime"
+    },
+    "fim_republicacao": {
+      "type": "datetime"
+    },
+    "imovel": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::imovel.imovel",
+      "inversedBy": "anuncios"
+    }
+  }
+}

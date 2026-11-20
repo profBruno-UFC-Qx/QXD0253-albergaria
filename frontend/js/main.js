@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const password = document.getElementById('txtSenha').value;
       const tipo_perfil = document.getElementById('rdAnunciante').checked
         ? 'ANUNCIANTE'
-        : 'USUARIO';
+        : 'COMUM';
 
       try {
         await registrarUsuario(nome, sobrenome, username, email, telefone, password, tipo_perfil);

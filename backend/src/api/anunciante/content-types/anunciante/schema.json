@@ -37,11 +37,6 @@
     "imovels": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::imovel.imovel"
-    },
-    "imovel": {
-      "type": "relation",
-      "relation": "oneToOne",
       "target": "api::imovel.imovel",
       "mappedBy": "anunciante"
     }
