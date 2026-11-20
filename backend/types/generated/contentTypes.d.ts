@@ -478,6 +478,10 @@ export interface ApiAnuncianteAnunciante extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     usuario: Schema.Attribute.Relation<
       'oneToOne',
       'plugin::users-permissions.user'
@@ -612,10 +616,6 @@ export interface ApiImovelImovel extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    disponibilidade: Schema.Attribute.Enumeration<
-      ['DISPONIVEL', 'ALUGADO', 'INDISPONIVEL']
-    > &
-      Schema.Attribute.DefaultTo<'DISPONIVEL'>;
     endereco: Schema.Attribute.Component<'localizacao.endereco', false>;
     favorito: Schema.Attribute.Relation<'manyToOne', 'api::favorito.favorito'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -637,6 +637,10 @@ export interface ApiImovelImovel extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    status_imovel: Schema.Attribute.Enumeration<
+      ['ATIVO', 'PAUSADO', 'ALUGADO', 'INDISPONIVEL']
+    > &
+      Schema.Attribute.DefaultTo<'ATIVO'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1102,6 +1106,10 @@ export interface PluginUsersPermissionsUser
     timestamps: true;
   };
   attributes: {
+    anunciante: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::anunciante.anunciante'
+    >;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;

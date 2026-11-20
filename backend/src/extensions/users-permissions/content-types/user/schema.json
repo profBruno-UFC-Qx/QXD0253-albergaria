@@ -92,6 +92,12 @@
     "telefone": {
       "type": "string",
       "required": true
+    },
+    "anunciante": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::anunciante.anunciante",
+      "inversedBy": "user"
     }
   }
 }

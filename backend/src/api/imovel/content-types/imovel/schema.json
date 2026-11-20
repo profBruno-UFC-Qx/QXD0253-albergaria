@@ -37,11 +37,12 @@
       "component": "localizacao.endereco",
       "repeatable": false
     },
-    "disponibilidade": {
+    "status_imovel": {
       "type": "enumeration",
-      "default": "DISPONIVEL",
+      "default": "ATIVO",
       "enum": [
-        "DISPONIVEL",
+        "ATIVO",
+        "PAUSADO",
         "ALUGADO",
         "INDISPONIVEL"
       ]

@@ -39,6 +39,12 @@
       "relation": "oneToMany",
       "target": "api::imovel.imovel",
       "mappedBy": "anunciante"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "anunciante"
     }
   }
 }
