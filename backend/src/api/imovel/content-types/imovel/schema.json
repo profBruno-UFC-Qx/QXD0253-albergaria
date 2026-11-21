@@ -47,11 +47,11 @@
         "INDISPONIVEL"
       ]
     },
-    "favorito": {
+    "favoritos": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::favorito.favorito",
-      "inversedBy": "imovels"
+      "mappedBy": "imovel"
     },
     "anunciante": {
       "type": "relation",
