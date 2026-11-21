@@ -562,13 +562,13 @@ export interface ApiFavoritoFavorito extends Struct.CollectionTypeSchema {
     singularName: 'favorito';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    imovels: Schema.Attribute.Relation<'oneToMany', 'api::imovel.imovel'>;
+    imovel: Schema.Attribute.Relation<'manyToOne', 'api::imovel.imovel'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -580,7 +580,7 @@ export interface ApiFavoritoFavorito extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     usuario: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
   };
@@ -617,7 +617,7 @@ export interface ApiImovelImovel extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     endereco: Schema.Attribute.Component<'localizacao.endereco', false>;
-    favorito: Schema.Attribute.Relation<'manyToOne', 'api::favorito.favorito'>;
+    favoritos: Schema.Attribute.Relation<'oneToMany', 'api::favorito.favorito'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1121,7 +1121,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    favorito: Schema.Attribute.Relation<'oneToOne', 'api::favorito.favorito'>;
+    favoritos: Schema.Attribute.Relation<'oneToMany', 'api::favorito.favorito'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

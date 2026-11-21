@@ -36,3 +36,5 @@ public/uploads/*
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+
+.idea/

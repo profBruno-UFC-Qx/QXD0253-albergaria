@@ -7,21 +7,21 @@
     "displayName": "favorito"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
     "usuario": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "favorito"
+      "inversedBy": "favoritos"
     },
-    "imovels": {
+    "imovel": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToOne",
       "target": "api::imovel.imovel",
-      "mappedBy": "favorito"
+      "inversedBy": "favoritos"
     }
   }
 }
