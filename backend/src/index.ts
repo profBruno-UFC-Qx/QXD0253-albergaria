@@ -1,10 +1,23 @@
 import type { Core } from '@strapi/strapi';
 
-const FAVORITO_ACTIONS = [
+const AUTHENTICATED_ACTIONS = [
+  // Favoritos
   'api::favorito.favorito.find',
   'api::favorito.favorito.findOne',
   'api::favorito.favorito.create',
   'api::favorito.favorito.delete',
+  // Contatos / Mensagens
+  'api::contato.contato.find',
+  'api::contato.contato.findOne',
+  'api::contato.contato.create',
+  'api::contato.contato.update',
+  'api::contato.contato.delete',
+  // Solicitações de Visita
+  'api::visita.visita.find',
+  'api::visita.visita.findOne',
+  'api::visita.visita.create',
+  'api::visita.visita.update',
+  'api::visita.visita.delete',
 ];
 
 export default {
@@ -31,7 +44,7 @@ export default {
               .filter((action): action is string => Boolean(action))
       );
 
-      for (const action of FAVORITO_ACTIONS) {
+      for (const action of AUTHENTICATED_ACTIONS) {
         if (!existingActions.has(action)) {
           await strapi.db
               .query('plugin::users-permissions.permission')
@@ -45,7 +58,7 @@ export default {
       }
     } catch (error) {
       strapi.log.error(
-          'Erro ao configurar permissões automáticas de favorito:',
+          'Erro ao configurar permissões automáticas no bootstrap:',
           error
       );
     }

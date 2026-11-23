@@ -554,6 +554,50 @@ export interface ApiCategoriaCategoria extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiContatoContato extends Struct.CollectionTypeSchema {
+  collectionName: 'contatos';
+  info: {
+    displayName: 'contato';
+    pluralName: 'contatos';
+    singularName: 'contato';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    anunciante: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::anunciante.anunciante'
+    >;
+    canal: Schema.Attribute.Enumeration<['MENSAGEM', 'WHATSAPP', 'TELEFONE']> &
+      Schema.Attribute.DefaultTo<'MENSAGEM'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    imovel: Schema.Attribute.Relation<'manyToOne', 'api::imovel.imovel'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::contato.contato'
+    > &
+      Schema.Attribute.Private;
+    mensagem: Schema.Attribute.Text & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    status_contato: Schema.Attribute.Enumeration<
+      ['NOVO', 'LIDO', 'RESPONDIDO']
+    > &
+      Schema.Attribute.DefaultTo<'NOVO'>;
+    telefone_contato: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    usuario: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiFavoritoFavorito extends Struct.CollectionTypeSchema {
   collectionName: 'favoritos';
   info: {
@@ -644,6 +688,50 @@ export interface ApiImovelImovel extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiVisitaVisita extends Struct.CollectionTypeSchema {
+  collectionName: 'visitas';
+  info: {
+    displayName: 'visita';
+    pluralName: 'visitas';
+    singularName: 'visita';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    anunciante: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::anunciante.anunciante'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data_visita: Schema.Attribute.Date & Schema.Attribute.Required;
+    horario: Schema.Attribute.String & Schema.Attribute.Required;
+    imovel: Schema.Attribute.Relation<'manyToOne', 'api::imovel.imovel'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::visita.visita'
+    > &
+      Schema.Attribute.Private;
+    observacoes: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    status_visita: Schema.Attribute.Enumeration<
+      ['PENDENTE', 'CONFIRMADA', 'RECUSADA', 'CANCELADA']
+    > &
+      Schema.Attribute.DefaultTo<'PENDENTE'>;
+    telefone_contato: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    usuario: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1171,8 +1259,10 @@ declare module '@strapi/strapi' {
       'api::anunciante.anunciante': ApiAnuncianteAnunciante;
       'api::anuncio.anuncio': ApiAnuncioAnuncio;
       'api::categoria.categoria': ApiCategoriaCategoria;
+      'api::contato.contato': ApiContatoContato;
       'api::favorito.favorito': ApiFavoritoFavorito;
       'api::imovel.imovel': ApiImovelImovel;
+      'api::visita.visita': ApiVisitaVisita;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
