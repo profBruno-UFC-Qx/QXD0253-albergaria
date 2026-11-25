@@ -9,6 +9,7 @@ import {
   encerrarSessao,
   atualizarCabecalhoAuth,
 } from './auth.js';
+import { inicializarFavoritos } from './favoritos.js';
 
 const elementoMapa = document.getElementById('map');
 const mapDetalhes = document.getElementById('map-detalhes');
@@ -118,6 +119,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Atualiza cabeçalho de autenticação nas páginas públicas/perfil
   const usuarioAtual = await verificarAutenticacao();
   atualizarCabecalhoAuth(usuarioAtual);
+  await inicializarFavoritos(usuarioAtual);
 
   const formCadastro = document.getElementById('form-cad');
   if (formCadastro) {
