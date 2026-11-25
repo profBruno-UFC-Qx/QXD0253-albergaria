@@ -15,7 +15,8 @@
       "required": true
     },
     "logradouro": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "latitude": {
       "type": "decimal",
@@ -24,10 +25,6 @@
     "longitude": {
       "type": "decimal",
       "required": true
-    },
-    "exibir_localizacao_exata": {
-      "type": "boolean",
-      "default": false
     }
   },
   "config": {}

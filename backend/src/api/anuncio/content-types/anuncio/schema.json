@@ -26,9 +26,6 @@
     "inicio_publicacao": {
       "type": "datetime"
     },
-    "fim_republicacao": {
-      "type": "datetime"
-    },
     "imovel": {
       "type": "relation",
       "relation": "manyToOne",
