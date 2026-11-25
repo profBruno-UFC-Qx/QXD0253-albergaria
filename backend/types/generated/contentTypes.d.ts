@@ -504,7 +504,6 @@ export interface ApiAnuncioAnuncio extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     descricao: Schema.Attribute.Blocks;
-    fim_republicacao: Schema.Attribute.DateTime;
     imovel: Schema.Attribute.Relation<'manyToOne', 'api::imovel.imovel'>;
     inicio_publicacao: Schema.Attribute.DateTime;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -516,38 +515,6 @@ export interface ApiAnuncioAnuncio extends Struct.CollectionTypeSchema {
     preco: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     titulo: Schema.Attribute.String & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiCategoriaCategoria extends Struct.CollectionTypeSchema {
-  collectionName: 'categorias';
-  info: {
-    displayName: 'categoria';
-    pluralName: 'categorias';
-    singularName: 'categoria';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    imovels: Schema.Attribute.Relation<'oneToMany', 'api::imovel.imovel'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::categoria.categoria'
-    > &
-      Schema.Attribute.Private;
-    nome: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'nome'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -603,16 +570,13 @@ export interface ApiImovelImovel extends Struct.CollectionTypeSchema {
     >;
     anuncios: Schema.Attribute.Relation<'oneToMany', 'api::anuncio.anuncio'>;
     banheiros: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
         {
           min: 0;
         },
         number
       >;
-    categoria: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::categoria.categoria'
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -624,13 +588,15 @@ export interface ApiImovelImovel extends Struct.CollectionTypeSchema {
       'api::imovel.imovel'
     > &
       Schema.Attribute.Private;
-    metragem: Schema.Attribute.Decimal;
+    metragem: Schema.Attribute.Decimal & Schema.Attribute.Required;
     midia: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    nome: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     quartos: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
         {
           min: 0;
@@ -638,9 +604,24 @@ export interface ApiImovelImovel extends Struct.CollectionTypeSchema {
         number
       >;
     status_imovel: Schema.Attribute.Enumeration<
-      ['ATIVO', 'PAUSADO', 'ALUGADO', 'INDISPONIVEL']
+      ['ATIVO', 'PAUSADO', 'ALUGADO', 'DISPONIVEL', 'INDISPONIVEL']
     > &
-      Schema.Attribute.DefaultTo<'ATIVO'>;
+      Schema.Attribute.DefaultTo<'DISPONIVEL'>;
+    tipo_imovel: Schema.Attribute.Enumeration<
+      [
+        'APARTAMENTO',
+        'CASA',
+        'CASA EM CONDOM\u00CDNIO',
+        'KITNET / STUDIO',
+        'LOFT',
+        'COBERTURA',
+        'FLAT / APART-HOTEL',
+        'QUARTO / REP\u00DABLICA',
+        'SALA COMERCIAL',
+        'PONTO COMERCIAL / LOJA',
+        'GALP\u00C3O / DEP\u00D3SITO',
+      ]
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1170,7 +1151,6 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::anunciante.anunciante': ApiAnuncianteAnunciante;
       'api::anuncio.anuncio': ApiAnuncioAnuncio;
-      'api::categoria.categoria': ApiCategoriaCategoria;
       'api::favorito.favorito': ApiFavoritoFavorito;
       'api::imovel.imovel': ApiImovelImovel;
       'plugin::content-releases.release': PluginContentReleasesRelease;

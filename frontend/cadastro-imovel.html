@@ -25,106 +25,79 @@
                     <h3 class="fw-bold mb-0">Cadastrar imóvel</h3>
                     <p class="text-secondary">Preencha as informações do imóvel.</p>
                 </header>
-                <form id="form-imovel" class="card" novalidate>
+                <form id="form-imovel" class="card">
                     <div class="card-body">
                         <div class="row g-4">
-                            <div class="col-12 col-lg-8">
+                            <div class="col-12 col-md-8">
                                 <div class="row g-3">
                                     <div class="col-12 col-md-8">
-                                        <label for="txtTitulo" class="form-label">Título do anúncio</label>
-                                        <input type="text" class="form-control" id="txtTitulo" name="titulo"
-                                            placeholder="Ex: Apartamento no Centro">
+                                        <label for="txtTitulo" class="form-label">Título do imóvel</label>
+                                        <input type="text" class="form-control" id="txtTitulo" placeholder="Ex: Apartamento no Centro">
                                     </div>
-                                    <div class="col-12 col-md-4">
-                                        <label for="nbrPreco" class="form-label">Preço mensal</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">R$</span>
-                                            <input type="number" class="form-control" id="nbrPreco" name="preco"
-                                                placeholder="0,00">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-md-4">
-                                        <label for="selTipo" class="form-label">Tipo</label>
-                                        <select class="form-select" id="selTipo" name="tipo" required>
-                                            <option value="">Selecione o tipo</option>
-                                            <option>Apartamento</option>
-                                            <option>Casa</option>
-                                            <option>Kitnet</option>
-                                            <option>Quarto</option>
-                                            <option>Outro</option>
+                                     <div class="col-6 col-md-4">
+                                        <label for="selTipo" class="form-label">Tipo de Imóvel</label>
+                                        <select class="form-select" id="selTipo">
+                                            <option value="">Selecione</option>
                                         </select>
                                     </div>
                                     <div class="col-6 col-md-4">
                                         <label for="selQuartos" class="form-label">Quartos</label>
-                                        <select class="form-select" id="selQuartos" name="quartos">
+                                        <select class="form-select" id="selQuartos">
                                             <option value="">Selecione</option>
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
-                                            <option>4+</option>
+                                            <option>4 ou mais</option>
                                         </select>
                                     </div>
                                     <div class="col-6 col-md-4">
                                         <label for="selBanheiros" class="form-label">Banheiros</label>
-                                        <select class="form-select" id="selBanheiros" name="banheiros">
+                                        <select class="form-select" id="selBanheiros">
                                             <option value="">Selecione</option>
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
-                                            <option>4+</option>
+                                            <option>4 ou mais</option>
                                         </select>
                                     </div>
-                                    <div class="col-6 col-md-4">
-                                        <label for="txtMetragem" class="form-label">Metragem (m²)</label>
-                                        <input type="number" class="form-control" id="txtMetragem" name="metragem"
-                                            placeholder="Ex: 70">
+                                    <div class="col-6 col-md-4 ">
+                                        <label for="txtMetragem" class="form-label">Metragem(m²)</label>
+                                        <input type="number" class="form-control" id="txtMetragem" placeholder="Ex: 70">
                                     </div>
-
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12 col-md-4">
                                         <label for="selCidade" class="form-label">Cidade</label>
-                                        <select class="form-select" id="selCidade" name="cidade">
+                                        <select class="form-select" id="selCidade">
                                             <option value="">Selecione a cidade</option>
-                                            <option>Quixadá</option>
-                                            <option>Fortaleza</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <label for="selEstado" class="form-label">Estado</label>
+                                        <select class="form-select" id="selEstado">
+                                            <option value="">Selecione um estado</option>
                                         </select>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <label for="selBairro" class="form-label">Bairro</label>
-                                        <select class="form-select" id="selBairro" name="bairro">
-                                            <option value="">Selecione o bairro</option>
-                                            <option>Centro</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-12">
                                         <label for="txtLogradouro" class="form-label">Logradouro</label>
-                                        <input type="text" class="form-control" id="txtLogradouro" name="endereco"
-                                            placeholder="Ex: Rua Manuel Alves">
+                                        <input type="text" class="form-control" id="txtLogradouro" placeholder="Ex: Rua Manuel Alves">
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <label for="txtBairro" class="form-label">Bairro</label>
+                                        <input type="text" class="form-control" id="txtBairro" placeholder="Ex: Centro">
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label">Localização no mapa</label>
                                         <div id="map-marcador"></div>
                                         <p class="text-muted">Clique no mapa para marcar o imóvel.</p>
-                                        <input type="hidden" id="latitude" name="latitude">
-                                        <input type="hidden" id="longitude" name="longitude">
+                                        <input type="hidden" id="latitude">
+                                        <input type="hidden" id="longitude">
                                     </div>
 
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-4 d-flex flex-column">
+                            <div class="col-12 col-md-4 d-flex flex-column">
                                 <label for="fMidia" id="dropzone" class="drop_midia d-flex flex-column justify-content-center align-items-center text-center border border-2 rounded p-4 bg-light fw-bold"> Arraste suas fotos aqui<br>ou clique para selecionar</label>
-                                <input type="file" id="fMidia" name="midia" accept="image/jpeg,image/png,video/mp4" multiple hidden>
-                                <div id="previas" class="d-flex flex-wrap gap-2 mt-3"></div>
-                                <div class="mt-4">
-                                    <span class="form-label d-block">Status do anúncio</span>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="status">
-                                        <label class="form-check-label" for="status" id="status-texto">Ativo</label>
-                                    </div>
-                                </div>
-                                <div id="mensagem" class="mt-3" role="status"></div>
-                                <button type="submit" class="btn btn-success btn-lg mt-3 mt-lg-auto">Cadastrar imóvel</button>
+                                <input type="file" id="fMidia" accept="image/jpeg,image/png,video/mp4" multiple hidden>
+                                <button type="submit" class="btn btn-success btn-lg mt-3">Cadastrar imóvel</button>
                             </div>
                         </div>
                     </div>

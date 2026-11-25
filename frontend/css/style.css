@@ -97,3 +97,7 @@
   cursor: pointer; 
   border-style: dashed !important;
 }
+
+#txaDescricao{
+  resize: none;
+}
