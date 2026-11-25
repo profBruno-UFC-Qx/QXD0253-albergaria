@@ -521,38 +521,6 @@ export interface ApiAnuncioAnuncio extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCategoriaCategoria extends Struct.CollectionTypeSchema {
-  collectionName: 'categorias';
-  info: {
-    displayName: 'categoria';
-    pluralName: 'categorias';
-    singularName: 'categoria';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    imovels: Schema.Attribute.Relation<'oneToMany', 'api::imovel.imovel'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::categoria.categoria'
-    > &
-      Schema.Attribute.Private;
-    nome: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'nome'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiContatoContato extends Struct.CollectionTypeSchema {
   collectionName: 'contatos';
   info: {
@@ -1271,8 +1239,8 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::anunciante.anunciante': ApiAnuncianteAnunciante;
       'api::anuncio.anuncio': ApiAnuncioAnuncio;
-      'api::categoria.categoria': ApiCategoriaCategoria;
       'api::contato.contato': ApiContatoContato;
+      'api::favorito.favorito': ApiFavoritoFavorito;
       'api::imovel.imovel': ApiImovelImovel;
       'api::visita.visita': ApiVisitaVisita;
       'plugin::content-releases.release': PluginContentReleasesRelease;
