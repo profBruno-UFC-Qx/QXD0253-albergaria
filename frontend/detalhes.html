@@ -54,9 +54,24 @@
       </p>
 
       <div class="d-flex gap-2 mt-4">
-        <button type="button" class="btn btn-outline-success flex-fill">Favoritar</button>
-        <button type="button" class="btn btn-success flex-fill">Tenho interesse</button>
+        <button
+                type="button"
+                id="btn-favoritar"
+                class="btn btn-outline-success flex-fill"
+                data-btn-favorito
+                data-imovel-id=""
+        >
+          ☆ Favoritar
+        </button>
+        <button
+                type="button"
+                id="btn-tenho-interesse"
+                class="btn btn-success flex-fill"
+        >
+          Tenho interesse
+        </button>
       </div>
+      <div id="feedback-favorito" class="mt-2" aria-live="polite"></div>
     </article>
 
     <aside class="col-12 col-md-4">

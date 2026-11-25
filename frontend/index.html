@@ -11,90 +11,104 @@
 </head>
 
 <body class="bg-site">
-  <header class="border-bottom bg-claro">
-    <nav class="navbar">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="./index.html">Albergaria</a>
-        <div class="d-flex justify-content-center" id="anunciar">
-          <a href="./painel.html" class="btn">Anunciar Imóvel</a>
-        </div>
+<header class="border-bottom bg-claro">
+  <nav class="navbar">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="./index.html">Albergaria</a>
+      <div class="d-flex justify-content-center" id="anunciar">
+        <a href="./painel.html" class="btn">Anunciar Imóvel</a>
       </div>
-    </nav>
-  </header>
-  
-  <div class="conteiner-fluid">
-    <div class="row">
-      <aside class="col-12 col-md-3 p-3 border-end">
-        <h5 class="fw-bold">Filtros</h5>
-        <form>
-          <div class="mb-2">
-            <label for="cidade" class="form-label">Cidade</label>
-            <select id="cidade" class="form-select">
-              <option>Quixadá</option>
-            </select>
+    </div>
+  </nav>
+</header>
+
+<div class="conteiner-fluid">
+  <div class="row">
+    <aside class="col-12 col-md-3 p-3 border-end">
+      <h5 class="fw-bold">Filtros</h5>
+      <form>
+        <div class="mb-2">
+          <label for="cidade" class="form-label">Cidade</label>
+          <select id="cidade" class="form-select">
+            <option>Quixadá</option>
+          </select>
+        </div>
+        <div class="mb-2">
+          <label for="bairro" class="form-label">Bairro</label>
+          <select id="bairro" class="form-select">
+            <option>Todos os bairros</option>
+          </select>
+        </div>
+        <div class="mb-2">
+          <label for="tipo" class="form-label">Tipo</label>
+          <select id="tipo" class="form-select">
+            <option>Todos os tipos</option>
+          </select>
+        </div>
+        <div class="row mb-2">
+          <div class="col-6">
+            <label for="precoMin" class="form-label">Preço mínimo</label>
+            <input type="number" id="precoMin" class="form-control" placeholder="R$ 0">
           </div>
-          <div class="mb-2">
-            <label for="bairro" class="form-label">Bairro</label>
-            <select id="bairro" class="form-select">
-              <option>Todos os bairros</option>
-            </select>
+          <div class="col-6">
+            <label for="precoMax" class="form-label">Preço máximo</label>
+            <input type="number" id="precoMax" class="form-control" placeholder="R$ 1.000">
           </div>
-          <div class="mb-2">
-            <label for="tipo" class="form-label">Tipo</label>
-              <select id="tipo" class="form-select">
-                <option>Todos os tipos</option>
-              </select>
-          </div>
-          <div class="row mb-2">
-            <div class="col-6">
-              <label for="precoMin" class="form-label">Preço mínimo</label>
-              <input type="number" id="precoMin" class="form-control" placeholder="R$ 0">
+        </div>
+        <div class="mb-2">
+          <label for="quartos" class="form-label">Quartos</label>
+          <select id="quartos" class="form-select">
+            <option>1</option>
+            <option>2</option>
+            <option>3+</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success w-100" id="btn-filtrar">Aplicar filtros</button>
+      </form>
+    </aside>
+    <main class="col-12 col-md-9 p-3">
+      <section class="mb-4">
+        <div class="mb-3">
+          <div id="map" class="rounded"></div>
+        </div>
+      </section>
+      <section>
+        <h2 class="h6 fw-bold mb-3">Resultados (12 imóveis)</h2>
+        <div id="feedback-favorito" class="mb-3" aria-live="polite"></div>
+        <article class="card mb-3">
+          <div class="row g-0">
+            <div class="col-4">
+              <img src="./images/image1.jpeg" class="img-fluid rounded-start h-100 object-fit-cover" alt="Apartamento no Centro">
             </div>
-            <div class="col-6">
-              <label for="precoMax" class="form-label">Preço máximo</label>
-              <input type="number" id="precoMax" class="form-control" placeholder="R$ 1.000">
-            </div>
-          </div>
-          <div class="mb-2">
-            <label for="quartos" class="form-label">Quartos</label>
-            <select id="quartos" class="form-select">
-              <option>1</option>
-              <option>2</option>
-              <option>3+</option>
-            </select>
-          </div>
-            <button type="submit" class="btn btn-success w-100" id="btn-filtrar">Aplicar filtros</button>
-        </form>
-      </aside>
-      <main class="col-12 col-md-9 p-3">
-        <section class="mb-4">
-          <div class="mb-3">
-            <div id="map" class="rounded"></div>
-          </div>
-        </section>
-        <section>
-          <h2 class="h6 fw-bold mb-3">Resultados (12 imóveis)</h2>
-          <article class="card mb-3">
-            <div class="row g-0">
-              <div class="col-4">
-                <img src="./images/image1.jpeg" class="img-fluid rounded-start h-100 object-fit-cover" alt="Apartamento no Centro">
-              </div>
-              <div class="col-8">
-                <div class="card-body">
+            <div class="col-8">
+              <div class="card-body d-flex flex-column justify-content-between h-100">
+                <div>
                   <h3 class="card-title h6">Apartamento no Centro</h3>
                   <p class="text-success fw-bold mb-1">R$ 1.250/mês</p>
                   <small class="text-muted">2 quartos · 1 banheiro · 68 m²</small>
                 </div>
+                <div class="d-flex gap-2 mt-3 flex-wrap">
+                  <a href="./detalhes.html" class="btn btn-sm btn-success" data-link-detalhes-demo>Ver detalhes</a>
+                  <button
+                          type="button"
+                          class="btn btn-sm btn-outline-success"
+                          data-btn-favorito
+                          data-imovel-id=""
+                  >
+                    ☆ Favoritar
+                  </button>
+                </div>
               </div>
             </div>
-          </article>
-        </section>
+          </div>
+        </article>
+      </section>
     </main>
-    </div>
   </div>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script type="module" src="./js/main.js"></script>
+</div>
+<script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script type="module" src="./js/main.js"></script>
 </body>
 
 </html>

@@ -79,3 +79,18 @@
   height: 220px;
   border-radius: 12px;
 }
+
+.avatar-iniciais {
+  width: 64px;
+  height: 64px;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.favorito-thumb {
+  width: 88px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}

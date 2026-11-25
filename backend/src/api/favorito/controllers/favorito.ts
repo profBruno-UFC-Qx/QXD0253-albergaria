@@ -12,24 +12,37 @@ export default factories.createCoreController('api::favorito.favorito', ({ strap
             return ctx.unauthorized('Você precisa estar autenticado para ver seus favoritos.');
         }
 
+        await this?.validateQuery?.(ctx);
+        const sanitizedQuery: any = (await this?.sanitizeQuery?.(ctx)) ?? {};
+
         const hasExistingFilters =
-            ctx.query.filters &&
-            typeof ctx.query.filters === 'object' &&
-            Object.keys(ctx.query.filters).length > 0;
+            sanitizedQuery.filters &&
+            typeof sanitizedQuery.filters === 'object' &&
+            Object.keys(sanitizedQuery.filters).length > 0;
 
-        ctx.query = {
-            ...ctx.query,
-            filters: hasExistingFilters
-                ? {
-                    $and: [
-                        ctx.query.filters,
-                        { usuario: { id: { $eq: user.id } } },
-                    ],
-                }
-                : { usuario: { id: { $eq: user.id } } },
-        };
+        const filters = hasExistingFilters
+            ? {
+                $and: [
+                    sanitizedQuery.filters,
+                    { usuario: { id: { $eq: user.id } } },
+                ],
+            }
+            : { usuario: { id: { $eq: user.id } } };
 
-        return await super.find(ctx);
+        const { results, pagination } = await (
+            strapi.service('api::favorito.favorito') as any
+        ).find({
+            ...sanitizedQuery,
+            filters,
+        });
+
+        const sanitizedResults = (await this?.sanitizeOutput?.(results, ctx)) ?? results;
+        return (
+            this?.transformResponse?.(sanitizedResults, { pagination }) ?? {
+                data: sanitizedResults,
+                meta: { pagination },
+            }
+        );
     },
 
     // Permite ver um favorito específico apenas se for do próprio usuário
