@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Imóvel Imóvel | Albergaria</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body class="bg-site">
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+            <aside class="col-12 col-md-3 col-lg-2 bg-claro border-end p-3 d-flex flex-md-column">
+                <a class="navbar-brand fw-bold fs-4 mb-md-4 me-3 me-md-0" href="./index.html">Albergaria</a>
+                <nav class="nav nav-pills flex-md-column flex-grow-1">
+                    <a class="nav-link text-dark" href="./painel.html">Visão geral</a>
+                    <a class="nav-link text-dark" href="./imoveis.html">Meus imóveis</a>
+                </nav>
+            </aside>
+            <main class="col-12 col-md-9 col-lg-10 p-3 p-md-4">
+                <header class="mb-4">
+                    <h3 class="fw-bold mb-0">Editar Imóvel</h3>
+                    <p class="text-secondary">Modifica as informações do imóvel.</p>
+                </header>
+                <form id="form-imovel" class="card">
+                    <div class="card-body">
+                        <div class="row g-4">
+                            <div class="col-12 col-md-8">
+                                <div class="row g-3">
+                                    <div class="col-12 col-md-8">
+                                        <label for="txtTitulo" class="form-label">Título do imóvel</label>
+                                        <input type="text" class="form-control" id="txtTitulo" placeholder="Ex: Apartamento no Centro">
+                                    </div>
+                                     <div class="col-6 col-md-4">
+                                        <label for="selTipo" class="form-label">Tipo de Imóvel</label>
+                                        <select class="form-select" id="selTipo">
+                                            <option value="">Selecione</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <label for="selQuartos" class="form-label">Quartos</label>
+                                        <select class="form-select" id="selQuartos">
+                                            <option value="">Selecione</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4 ou mais</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <label for="selBanheiros" class="form-label">Banheiros</label>
+                                        <select class="form-select" id="selBanheiros">
+                                            <option value="">Selecione</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4 ou mais</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 col-md-4 ">
+                                        <label for="txtMetragem" class="form-label">Metragem(m²)</label>
+                                        <input type="number" class="form-control" id="txtMetragem" placeholder="Ex: 70">
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <label for="selCidade" class="form-label">Cidade</label>
+                                        <select class="form-select" id="selCidade">
+                                            <option value="">Selecione a cidade</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <label for="selEstado" class="form-label">Estado</label>
+                                        <select class="form-select" id="selEstado">
+                                            <option value="">Selecione um estado</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="txtLogradouro" class="form-label">Logradouro</label>
+                                        <input type="text" class="form-control" id="txtLogradouro" placeholder="Ex: Rua Manuel Alves">
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <label for="txtBairro" class="form-label">Bairro</label>
+                                        <input type="text" class="form-control" id="txtBairro" placeholder="Ex: Centro">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Localização no mapa</label>
+                                        <div id="map-marcador"></div>
+                                        <p class="text-muted">Clique no mapa para marcar o imóvel.</p>
+                                        <input type="hidden" id="latitude">
+                                        <input type="hidden" id="longitude">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 d-flex flex-column">
+                                <label for="fMidia" id="dropzone" class="drop_midia d-flex flex-column justify-content-center align-items-center text-center border border-2 rounded p-4 bg-light fw-bold"> Arraste suas fotos aqui<br>ou clique para selecionar</label>
+                                <input type="file" id="fMidia" accept="image/jpeg,image/png,video/mp4" multiple hidden>
+                                <button type="submit" class="btn btn-success btn-lg mt-3">Cadastrar imóvel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script type="module" src="./js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

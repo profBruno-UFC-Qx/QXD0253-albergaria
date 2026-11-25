@@ -19,7 +19,14 @@
 }
 
 .img-aptos{
+  width: 100%;
   height: 200px;
+  object-fit: cover;
+}
+
+.img-tabela{
+  width: 100px;
+  height: 100px;
   object-fit: cover;
 }
 
@@ -78,4 +85,19 @@
 #map-detalhes{
   height: 220px;
   border-radius: 12px;
+}
+
+#map-marcador{
+  height: 220px;
+  border-radius: 12px;
+}
+
+.drop_midia{
+  min-height: 260px; 
+  cursor: pointer; 
+  border-style: dashed !important;
+}
+
+#txaDescricao{
+  resize: none;
 }
