@@ -23,16 +23,16 @@
 <main class="container py-3">
   <section class="row g-2 mt-2 mb-4">
     <div class="col-12 col-md-9 d-flex justify-content-center">
-      <img src="./images/image2.jpeg" class="img-rosto">
+      <img src="./images/image2.jpeg" class="img-rosto" alt="Foto principal do imóvel">
     </div>
 
     <div class="col-12 col-md-3">
       <div class="row row-cols-3 row-cols-md-1 g-2">
         <div class="col">
-          <img src="./images/image1.jpeg" class="img-exibicao">
+          <img src="./images/image1.jpeg" class="img-exibicao" alt="Foto secundária 1 do imóvel">
         </div>
         <div class="col">
-          <img src="./images/image3.jpeg" class="img-exibicao">
+          <img src="./images/image3.jpeg" class="img-exibicao" alt="Foto secundária 2 do imóvel">
         </div>
       </div>
     </div>
@@ -72,6 +72,137 @@
         </button>
       </div>
       <div id="feedback-favorito" class="mt-2" aria-live="polite"></div>
+
+      <section id="painel-interesse" class="card shadow-sm border-0 mt-4 d-none" aria-label="Contato e solicitação de visita">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0">Falar com o anunciante</h5>
+            <button type="button" id="btn-fechar-interesse" class="btn-close" aria-label="Fechar painel"></button>
+          </div>
+
+          <div class="border rounded p-3 mb-3 bg-light">
+            <p class="mb-1 small text-secondary">Anunciante responsável</p>
+            <p class="fw-bold mb-1" id="anunciante-nome">Anunciante Albergaria</p>
+            <p class="small text-secondary mb-2">
+              Telefone: <span id="anunciante-telefone-texto">Não informado</span>
+            </p>
+            <div class="d-flex gap-2 flex-wrap">
+              <a
+                      id="btn-whatsapp-anunciante"
+                      href="#"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn btn-sm btn-success d-none"
+              >
+                Conversar no WhatsApp
+              </a>
+              <a
+                      id="btn-telefone-anunciante"
+                      href="#"
+                      class="btn btn-sm btn-outline-success d-none"
+              >
+                Ligar por telefone
+              </a>
+            </div>
+            <p id="aviso-sem-telefone" class="text-muted small mb-0">
+              Telefone direto não cadastrado neste anúncio. Envie uma mensagem ou solicite uma visita abaixo.
+            </p>
+          </div>
+
+          <div id="aviso-login-interesse" class="alert alert-warning py-2 px-3 small d-none" role="alert">
+            Para enviar uma mensagem ou solicitar uma visita, você precisa entrar na sua conta.
+            <a id="link-login-interesse" href="./login.html" class="alert-link ms-1">Fazer login</a>
+          </div>
+
+          <ul class="nav nav-tabs mb-3" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button type="button" id="tab-btn-contato" class="nav-link active text-success fw-semibold">
+                Enviar mensagem
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button type="button" id="tab-btn-visita" class="nav-link text-success fw-semibold">
+                Solicitar visita
+              </button>
+            </li>
+          </ul>
+
+          <div id="aba-contato">
+            <form id="form-contato" class="d-flex flex-column gap-3">
+              <div>
+                <label for="contato-telefone" class="form-label small fw-semibold">Seu telefone / WhatsApp (opcional)</label>
+                <input
+                        type="tel"
+                        id="contato-telefone"
+                        class="form-control"
+                        placeholder="(88) 99999-9999"
+                />
+              </div>
+              <div>
+                <label for="contato-mensagem" class="form-label small fw-semibold">Mensagem</label>
+                <textarea
+                        id="contato-mensagem"
+                        class="form-control"
+                        rows="3"
+                        required
+                        placeholder="Olá! Gostaria de saber se o imóvel ainda está disponível e quais as condições de locação."
+                ></textarea>
+              </div>
+              <div id="feedback-contato" aria-live="polite"></div>
+              <button type="submit" id="btn-enviar-contato" class="btn btn-success">
+                Enviar mensagem
+              </button>
+            </form>
+          </div>
+
+          <div id="aba-visita" class="d-none">
+            <form id="form-visita" class="d-flex flex-column gap-3">
+              <div class="row g-2">
+                <div class="col-12 col-sm-6">
+                  <label for="visita-data" class="form-label small fw-semibold">Data desejada</label>
+                  <input type="date" id="visita-data" class="form-control" required />
+                </div>
+                <div class="col-12 col-sm-6">
+                  <label for="visita-horario" class="form-label small fw-semibold">Horário preferencial</label>
+                  <select id="visita-horario" class="form-select" required>
+                    <option value="">Selecione um horário</option>
+                    <option value="08:00">08:00</option>
+                    <option value="09:00">09:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label for="visita-telefone" class="form-label small fw-semibold">Seu telefone para confirmação</label>
+                <input
+                        type="tel"
+                        id="visita-telefone"
+                        class="form-control"
+                        placeholder="(88) 99999-9999"
+                />
+              </div>
+              <div>
+                <label for="visita-observacoes" class="form-label small fw-semibold">Observações (opcional)</label>
+                <textarea
+                        id="visita-observacoes"
+                        class="form-control"
+                        rows="2"
+                        placeholder="Ex.: Posso visitar no início da tarde ou levar fiador."
+                ></textarea>
+              </div>
+              <div id="feedback-visita" aria-live="polite"></div>
+              <button type="submit" id="btn-enviar-visita" class="btn btn-success">
+                Solicitar visita
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
     </article>
 
     <aside class="col-12 col-md-4">
