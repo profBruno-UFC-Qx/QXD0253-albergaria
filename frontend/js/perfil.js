@@ -1,5 +1,6 @@
 import { protegerPagina, encerrarSessao } from './auth.js';
 import { renderizarFavoritosNoPerfil } from './favoritos.js';
+import { renderizarInteracoesNoPerfil } from './contato-visitas.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const user = await protegerPagina();
@@ -43,5 +44,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const listaFavoritos = document.getElementById('perfil-favoritos');
-    await renderizarFavoritosNoPerfil(listaFavoritos);
+    const listaInteracoes = document.getElementById('perfil-interacoes');
+
+    await Promise.all([
+        renderizarFavoritosNoPerfil(listaFavoritos),
+        renderizarInteracoesNoPerfil(listaInteracoes),
+    ]);
 });

@@ -21,27 +21,77 @@ export default factories.createCoreController('api::visita.visita', ({ strapi })
             return ctx.unauthorized('Você precisa estar autenticado para ver suas visitas.');
         }
 
-        const ownershipFilter = {
-            $or: [
-                { usuario: { id: { $eq: user.id } } },
-                { anunciante: { user: { id: { $eq: user.id } } } },
-                { anunciante: { usuario: { id: { $eq: user.id } } } },
-            ],
-        };
+        const registros: any[] = await strapi.documents('api::visita.visita').findMany({
+            filters: {
+                $or: [
+                    { usuario: { id: { $eq: user.id } } },
+                    { anunciante: { user: { id: { $eq: user.id } } } },
+                    { anunciante: { usuario: { id: { $eq: user.id } } } },
+                ],
+            } as any,
+            populate: {
+                imovel: {
+                    populate: ['anuncios', 'endereco'],
+                },
+                anunciante: {
+                    populate: ['user', 'usuario'],
+                },
+                usuario: true,
+            } as any,
+            sort: { createdAt: 'desc' } as any,
+        });
 
-        const hasExistingFilters =
-            ctx.query.filters &&
-            typeof ctx.query.filters === 'object' &&
-            Object.keys(ctx.query.filters).length > 0;
+        const data = registros.map((item) => ({
+            id: item.id,
+            documentId: item.documentId,
+            data_visita: item.data_visita,
+            horario: item.horario,
+            observacoes: item.observacoes,
+            telefone_contato: item.telefone_contato,
+            status_visita: item.status_visita,
+            createdAt: item.createdAt,
+            updatedAt: item.updatedAt,
+            eh_remetente: item.usuario?.id === user.id,
+            eh_anunciante: isAnuncianteOwner(item, user.id),
+            usuario: item.usuario
+                ? {
+                    id: item.usuario.id,
+                    username: item.usuario.username,
+                    nome: item.usuario.nome,
+                    sobrenome: item.usuario.sobrenome,
+                    email: item.usuario.email,
+                    telefone: item.usuario.telefone,
+                }
+                : null,
+            anunciante: item.anunciante
+                ? {
+                    id: item.anunciante.id,
+                    documentId: item.anunciante.documentId,
+                    nome: item.anunciante.nome,
+                    telefone: item.anunciante.telefone,
+                }
+                : null,
+            imovel: item.imovel
+                ? {
+                    id: item.imovel.id,
+                    documentId: item.imovel.documentId,
+                    quartos: item.imovel.quartos,
+                    banheiros: item.imovel.banheiros,
+                    metragem: item.imovel.metragem,
+                    endereco: item.imovel.endereco ?? null,
+                    anuncios: Array.isArray(item.imovel.anuncios)
+                        ? item.imovel.anuncios.map((a: any) => ({
+                            id: a.id,
+                            documentId: a.documentId,
+                            titulo: a.titulo,
+                            preco: a.preco,
+                        }))
+                        : [],
+                }
+                : null,
+        }));
 
-        ctx.query = {
-            ...ctx.query,
-            filters: hasExistingFilters
-                ? { $and: [ctx.query.filters, ownershipFilter] }
-                : ownershipFilter,
-        };
-
-        return await super.find(ctx);
+        return { data, meta: { pagination: { total: data.length } } };
     },
 
     // Permite ver uma visita específica se for o solicitante ou o anunciante do imóvel
@@ -66,7 +116,7 @@ export default factories.createCoreController('api::visita.visita', ({ strapi })
 
         const isSender = visita.usuario?.id === user.id;
         if (!isSender && !isAnuncianteOwner(visita, user.id)) {
-            return ctx.forbidden('Você não tem permissão para acessar esta solicitação de visita.');
+            return ctx.forbidden('Você não tem permissão para acessar esta solicitação.');
         }
 
         return await super.findOne(ctx);
@@ -179,7 +229,7 @@ export default factories.createCoreController('api::visita.visita', ({ strapi })
         const isOwner = isAnuncianteOwner(visita, user.id);
 
         if (!isSender && !isOwner) {
-            return ctx.forbidden('Você não tem permissão para alterar esta solicitação de visita.');
+            return ctx.forbidden('Você não tem permissão para alterar esta solicitação.');
         }
 
         const body = (ctx.request.body ?? {}) as { data?: { status_visita?: string } };

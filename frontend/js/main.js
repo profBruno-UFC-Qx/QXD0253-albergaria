@@ -10,6 +10,7 @@ import {
   atualizarCabecalhoAuth,
 } from './auth.js';
 import { inicializarFavoritos } from './favoritos.js';
+import { inicializarContatoEVisitas } from './contato-visitas.js';
 
 const elementoMapa = document.getElementById('map');
 const mapDetalhes = document.getElementById('map-detalhes');
@@ -99,6 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const usuarioAtual = await verificarAutenticacao();
   atualizarCabecalhoAuth(usuarioAtual);
   await inicializarFavoritos(usuarioAtual);
+  await inicializarContatoEVisitas(usuarioAtual);
 
   const formCadastro = document.getElementById('form-cad');
   if (formCadastro) {
