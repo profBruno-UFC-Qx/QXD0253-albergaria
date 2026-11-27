@@ -84,26 +84,12 @@ if (mapMarcador && typeof L !== 'undefined') {
     }
   });
 
-  // Se o mapa estiver dentro de um modal, recalcula o tamanho quando ele abrir
-  const modalImovel = document.getElementById('modalImovel');
-  if (modalImovel) {
-    modalImovel.addEventListener('shown.bs.modal', () => mapa.invalidateSize());
-
-    // Ao fechar, remove o marcador antigo
-    modalImovel.addEventListener('hidden.bs.modal', () => {
-      if (marcador) {
-        mapa.removeLayer(marcador);
-        marcador = undefined;
-      }
-    });
-  }
 }
 
 
 document.addEventListener('DOMContentLoaded', async () => {
   const paginaAtual = obterPaginaAtual();
 
-  // Proteção do painel: apenas usuários autenticados com perfil ANUNCIANTE
   if (paginaAtual === 'painel.html') {
     const anunciante = await protegerPagina({ perfisPermitidos: ['ANUNCIANTE'] });
     if (!anunciante) return;
@@ -125,13 +111,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  // Se já estiver logado, redireciona ao acessar login ou cadastro
   if (paginaAtual === 'login.html' || paginaAtual === 'cadastro.html') {
     const jaLogado = await redirecionarSeAutenticado();
     if (jaLogado) return;
   }
 
-  // Atualiza cabeçalho de autenticação nas páginas públicas/perfil
   const usuarioAtual = await verificarAutenticacao();
   atualizarCabecalhoAuth(usuarioAtual);
   await inicializarFavoritos(usuarioAtual);
@@ -185,7 +169,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 const selectEstado = document.getElementById('selEstado');
 const selectCidade = document.getElementById('selCidade');
 
-// Só executa nas páginas que têm os selects de estado e cidade
 if (selectEstado && selectCidade) {
   async function carregarEstados() {
     try {
