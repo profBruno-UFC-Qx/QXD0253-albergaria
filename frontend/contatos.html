@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatos recebidos | Albergaria</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body class="bg-site">
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+            <aside class="col-12 col-md-3 col-lg-2 bg-claro border-end p-3 d-flex flex-md-column">
+                <a class="navbar-brand fw-bold fs-4 mb-md-4 me-3 me-md-0" href="./index.html">Albergaria</a>
+                <nav class="nav nav-pills flex-md-column flex-grow-1">
+                    <a class="nav-link text-dark" href="./painel.html">Visão Geral</a>
+                    <a class="nav-link text-dark" href="./imoveis.html">Meus Imóveis</a>
+                    <a class="nav-link active bg-success" href="./contatos.html">Contatos Recebidos</a>
+                    <a class="nav-link text-dark" href="./perfil.html">Meu Perfil</a>
+                    <button type="button" id="btn-logout-painel"
+                        class="nav-link text-danger text-start mt-md-auto border-0 bg-transparent">Sair</button>
+            </aside>
+
+            <main class="col-12 col-md-9 col-lg-10 p-3 p-md-4">
+                <header class="mb-4 d-flex flex-wrap justify-content-between align-items-end gap-2">
+                    <div>
+                        <h3 class="fw-bold mb-0">Contatos recebidos</h3>
+                        <p class="text-secondary mb-0">Veja as mensagens e gerencie as visitas solicitadas.</p>
+                    </div>
+                    <span id="resumoPendentes" class="badge text-bg-warning fs-6"></span>
+                </header>
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                    <div class="card-body p-3">
+                        <form id="formFiltros">
+                            <div class="row g-3 align-items-end">
+                                <div class="col-md-4">
+                                    <label for="filtroBusca" class="form-label small fw-semibold mb-1">Buscar
+                                        Contato</label>
+                                    <div class="position-relative">
+                                        <input type="text" id="filtroBusca" class="form-control form-control-sm"
+                                            placeholder="Buscar por nome ou bair">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="filtroStatus" class="form-label small fw-semibold mb-1">Status</label>
+                                    <select id="filtroStatus" class="form-select form-select-sm">
+                                        <option value="todos">Todos</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 d-flex gap-2">
+                                    <button type="submit" id="btnFiltrar" class="btn btn-sm btn-success flex-grow-1">
+                                        Filtrar </button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive bg-white rounded">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Contato</th>
+                                <th>Imóvel</th>
+                                <th>Mensagem</th>
+                                <th>Visita solicitada</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaContatos">
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold">Maria Souza</div>
+                                    <div class="small text-muted">maria@email.com</div>
+                                </td>
+                                <td class="small">Apartamento aconchegante no Centro</td>
+                                <td class="small text-muted">
+                                    <div class="text-truncate">A</div>
+                                </td>
+                                <td class="small text-nowrap">02/12/2026 15:00</td>
+                                <td><span class="badge text-bg-warning">Pendente</span></td>
+                                <td class="text-end">
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false" aria-label="Ações"></button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal">
+                                                    <i class="far fa-envelope fa-fw me-2" aria-hidden="true"></i>Ver
+                                                    mensagem
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    target="_blank" rel="noopener">
+                                                    <i class="fab fa-whatsapp fa-fw me-2"
+                                                        aria-hidden="true"></i>Responder no WhatsApp
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li>
+                                                <form method="post" action="/contatos/1/status">
+                                                    <input type="hidden" name="status" value="confirmada">
+                                                    <button type="submit" class="dropdown-item">
+                                                        <i class="far fa-circle-check fa-fw me-2"
+                                                            aria-hidden="true"></i>Confirmar visita
+                                                    </button>
+                                                </form>
+                                            </li>
+                                            <li>
+                                                <form method="post" action="/contatos/1/status">
+                                                    <input type="hidden" name="status" value="recusada">
+                                                    <button type="submit" class="dropdown-item text-danger">
+                                                        <i class="far fa-circle-xmark fa-fw me-2"
+                                                            aria-hidden="true"></i>Recusar visita
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold">João Pereira</div>
+                                    <div class="small text-muted">joao@email.com</div>
+                                </td>
+                                <td class="small">Casa com quintal no Planalto</td>
+                                <td class="small text-muted">
+                                    <div class="text-truncate">A</div>
+                                </td>
+                                <td class="small text-nowrap">_</td>
+                                <td><span class="text-muted small">_</span></td>
+                                <td class="text-end">
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                            data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
+                                            aria-expanded="false" aria-label="Ações"></button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                    data-bs-target="#modalContato">
+                                                    <i class="far fa-envelope fa-fw me-2" aria-hidden="true"></i>Ver
+                                                    mensagem
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="https://wa.me/5588999990002"
+                                                    target="_blank" rel="noopener">
+                                                    <i class="fab fa-whatsapp fa-fw me-2"
+                                                        aria-hidden="true"></i>Responder no WhatsApp
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold">Ana Lima</div>
+                                    <div class="small text-muted">ana@email.com</div>
+                                </td>
+                                <td class="small">Kitnet mobiliada</td>
+                                <td class="small text-muted">
+                                    <div class="text-truncate">Tenho interesse, posso visitar na quarta pela manhã?
+                                    </div>
+                                </td>
+                                <td class="small text-nowrap">30/11/2026 09:30</td>
+                                <td><span class="badge text-bg-success">Confirmada</span></td>
+                                <td class="text-end">
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                            data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
+                                            aria-expanded="false" aria-label="Ações"></button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                    data-bs-target="#modalContato">
+                                                    <i class="far fa-envelope fa-fw me-2" aria-hidden="true"></i>Ver
+                                                    mensagem
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="https://wa.me/5588999990003"
+                                                    target="_blank" rel="noopener">
+                                                    <i class="fab fa-whatsapp fa-fw me-2"
+                                                        aria-hidden="true"></i>Responder no WhatsApp
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li>
+                                                <form method="post" action="/contatos/3/status">
+                                                    <input type="hidden" name="status" value="realizada">
+                                                    <button type="submit" class="dropdown-item">
+                                                        <i class="far fa-calendar-check fa-fw me-2"
+                                                            aria-hidden="true"></i>Marcar como realizada
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

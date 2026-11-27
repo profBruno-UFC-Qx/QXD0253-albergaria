@@ -100,9 +100,12 @@
   object-fit: cover;
   border-radius: 8px;
   flex-shrink: 0;
+}
+
 #map-marcador{
   height: 220px;
   border-radius: 12px;
+  isolation: isolate;
 }
 
 .drop_midia{
