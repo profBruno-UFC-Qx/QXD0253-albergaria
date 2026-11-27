@@ -77,8 +77,9 @@
     },
     "tipo_perfil": {
       "type": "enumeration",
-      "default": "COMUM",
+      "default": "VISITANTE",
       "enum": [
+        "VISITANTE",
         "COMUM",
         "ANUNCIANTE"
       ]

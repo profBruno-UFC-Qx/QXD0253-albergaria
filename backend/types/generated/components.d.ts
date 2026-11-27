@@ -9,6 +9,7 @@ export interface LocalizacaoEndereco extends Struct.ComponentSchema {
   attributes: {
     bairro: Schema.Attribute.String & Schema.Attribute.Required;
     cidade: Schema.Attribute.String & Schema.Attribute.Required;
+    estado: Schema.Attribute.String & Schema.Attribute.Required;
     latitude: Schema.Attribute.Decimal & Schema.Attribute.Required;
     logradouro: Schema.Attribute.String & Schema.Attribute.Required;
     longitude: Schema.Attribute.Decimal & Schema.Attribute.Required;

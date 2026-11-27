@@ -1,4 +1,4 @@
-const API = 'http://localhost:1337/api';
+export const API = 'http://localhost:1337/api';
 
 export async function registrarUsuario(nome, sobrenome, username, email, telefone, password, tipo_perfil) {
     try {
@@ -98,9 +98,9 @@ export function obterPaginaAtual() {
 
 export function obterDestinoPorPerfil(user) {
     if (user?.tipo_perfil === 'ANUNCIANTE') {
-        return './painel.html';
+        return "./painel.html";
     }
-    return './index.html';
+    return 'index.html';
 }
 
 export function obterDestinoPosLogin(user) {

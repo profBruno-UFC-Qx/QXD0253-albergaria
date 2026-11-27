@@ -1212,8 +1212,10 @@ export interface PluginUsersPermissionsUser
     >;
     sobrenome: Schema.Attribute.String & Schema.Attribute.Required;
     telefone: Schema.Attribute.String & Schema.Attribute.Required;
-    tipo_perfil: Schema.Attribute.Enumeration<['COMUM', 'ANUNCIANTE']> &
-      Schema.Attribute.DefaultTo<'COMUM'>;
+    tipo_perfil: Schema.Attribute.Enumeration<
+      ['VISITANTE', 'COMUM', 'ANUNCIANTE']
+    > &
+      Schema.Attribute.DefaultTo<'VISITANTE'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

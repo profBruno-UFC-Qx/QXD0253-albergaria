@@ -11,10 +11,11 @@ import {
 } from './auth.js';
 import { inicializarFavoritos } from './favoritos.js';
 import { inicializarContatoEVisitas } from './contato-visitas.js';
+import { inicializarCadastroImovel } from './cadastro-imovel.js';
+import { inicializarCadastroAnuncio } from './cadastro-anuncio.js';
 
 const elementoMapa = document.getElementById('map');
 const mapDetalhes = document.getElementById('map-detalhes');
-const mapMarcador = document.getElementById('map-marcador');
 
 if (elementoMapa && typeof L !== 'undefined') {
   const mapa = L.map(elementoMapa).setView([-4.9714, -39.0153], 14);
@@ -64,25 +65,6 @@ if (mapDetalhes && typeof L !== 'undefined') {
       </div>
     `);
   });
-}
-
-if (mapMarcador && typeof L !== 'undefined') {
-  const mapa = L.map(mapMarcador).setView([-4.9714, -39.0153], 14);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(mapa);
-  let marcador;
-  mapa.on('click', (e) =>{
-    const {lat, lng} = e.latlng;
-    document.getElementById('latitude').value = lat.toFixed(6);
-    document.getElementById('longitude').value = lng.toFixed(6);
-    if(marcador){
-      marcador.setLatLng(e.latlng);
-    }else{
-      marcador = L.marker(e.latlng).addTo(mapa);
-    }
-  });
 
 }
 
@@ -108,12 +90,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (btnLogoutPainel) {
       btnLogoutPainel.addEventListener('click', () => encerrarSessao('./index.html'));
     }
+    inicializarCadastroImovel();
+    return;
+  }
+  if (paginaAtual === 'cadastro-imovel.html') {
+    const anunciante = await protegerPagina({ perfisPermitidos: ['ANUNCIANTE'] });
+    if (!anunciante) return;
+
+    const btnLogoutPainel = document.getElementById('btn-logout-painel');
+    if (btnLogoutPainel) {
+      btnLogoutPainel.addEventListener('click', () => encerrarSessao('./index.html'));
+    }
+    inicializarCadastroImovel();
     return;
   }
 
   if (paginaAtual === 'login.html' || paginaAtual === 'cadastro.html') {
     const jaLogado = await redirecionarSeAutenticado();
     if (jaLogado) return;
+  }
+
+  if (paginaAtual === 'cadastro-anuncio.html') {
+    const anunciante = await protegerPagina({ perfisPermitidos: ['ANUNCIANTE'] });
+    if (!anunciante) return;
+
+    const btnLogoutPainel = document.getElementById('btn-logout-painel');
+    if (btnLogoutPainel) {
+      btnLogoutPainel.addEventListener('click', () => encerrarSessao('./index.html'));
+    }
+    inicializarCadastroAnuncio();
+    return;
   }
 
   const usuarioAtual = await verificarAutenticacao();
@@ -133,8 +139,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const telefone = document.getElementById('txtTelefone').value;
       const password = document.getElementById('txtSenha').value;
       const tipo_perfil = document.getElementById('rdAnunciante').checked
-          ? 'ANUNCIANTE'
-          : 'COMUM';
+        ? 'ANUNCIANTE'
+        : 'COMUM';
 
       try {
         await registrarUsuario(nome, sobrenome, username, email, telefone, password, tipo_perfil);
@@ -165,58 +171,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 });
-
-const selectEstado = document.getElementById('selEstado');
-const selectCidade = document.getElementById('selCidade');
-
-if (selectEstado && selectCidade) {
-  async function carregarEstados() {
-    try {
-      const response = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
-      const estados = await response.json();
-      selectEstado.innerHTML = '<option value="">Selecione um estado</option>';
-      estados.forEach(estado => {
-        const option = document.createElement('option');
-        option.value = estado.sigla; 
-        option.textContent = `${estado.nome} (${estado.sigla})`;
-        selectEstado.appendChild(option);
-      });
-    } catch (error) {
-      console.error('Erro ao carregar estados:', error);
-      selectEstado.innerHTML = '<option value="">Erro ao carregar estados</option>';
-    }
-  }
-
-  selectEstado.addEventListener('change', async (event) => {
-    const uf = event.target.value;
-
-    if (!uf) {
-      selectCidade.innerHTML = '<option value="">Selecione um estado primeiro</option>';
-      selectCidade.disabled = true;
-      return;
-    }
-
-    selectCidade.innerHTML = '<option value="">Carregando cidades...</option>';
-    selectCidade.disabled = true;
-    try {
-      const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios?orderBy=nome`);
-      const cidades = await response.json();
-
-      selectCidade.innerHTML = '<option value="">Selecione uma cidade</option>';
-
-      cidades.forEach(cidade => {
-        const option = document.createElement('option');
-        option.value = cidade.nome;
-        option.textContent = cidade.nome;
-        selectCidade.appendChild(option);
-      });
-
-      selectCidade.disabled = false;
-    } catch (error) {
-      console.error('Erro ao carregar cidades:', error);
-      selectCidade.innerHTML = '<option value="">Erro ao carregar cidades</option>';
-    }
-  });
-
-  carregarEstados();
-}
