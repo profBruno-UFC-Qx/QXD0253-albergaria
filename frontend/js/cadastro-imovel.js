@@ -40,6 +40,7 @@ function preencherSelect(select, opcoes, placeholder = null) {
 export function inicializarCadastroImovel() {
     const form = document.getElementById("form-cad-imovel");
     if (!form) return;
+
     const txtTitulo = document.getElementById("txtTitulo");
     const selTipo = document.getElementById("selTipo");
     const selQuartos = document.getElementById("selQuartos");
@@ -56,9 +57,7 @@ export function inicializarCadastroImovel() {
     const btnSubmit = form.querySelector('button[type="submit"]');
     const preview = document.createElement("div");
     preview.className = "row g-2 mt-2";
-    if (dropzone) {
-        dropzone.after(preview);
-    }
+    if (dropzone) dropzone.after(preview);
     let arquivos = [];
     let urlsAtivas = [];
     let mapa, marcador;
@@ -67,7 +66,7 @@ export function inicializarCadastroImovel() {
         if (selTipo) {
             preencherSelect(
                 selTipo,
-                TIPOS_IMOVEL.map((t) => ({ value: t.toLowerCase(), text: t })),
+                TIPOS_IMOVEL.map((t) => ({ value: t.toUpperCase(), text: t })),
                 "Selecione"
             );
         }
@@ -130,9 +129,7 @@ export function inicializarCadastroImovel() {
 
     function initMapa() {
         const containerMapa = document.getElementById("map-marcador");
-        if (!containerMapa || typeof L === "undefined") {
-            return;
-        }
+        if (!containerMapa || typeof L === "undefined") return;
 
         mapa = L.map(containerMapa).setView([-4.9714, -39.0153], 12);
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -287,53 +284,68 @@ export function inicializarCadastroImovel() {
         }
     }
 
+    async function lerErro(resp) {
+        const corpo = await resp.json().catch(() => null);
+        return corpo?.error?.message || `Erro ${resp.status}`;
+    }
+
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (!validar()) return;
 
-        const payload = {
-            nome: txtTitulo.value.trim(),
-            quartos: Number(selQuartos.value),
-            banheiros: Number(selBanheiros.value),
-            metragem: Number(txtMetragem.value),
-            endereco:{
-                cidade: selCidade.value,
-                bairro: txtBairro.value.trim(),
-                estado: selEstado.value,
-                logradouro: txtLogradouro.value.trim(),
-                latitude: Number(inpLat.value),
-                longitude: Number(inpLng.value),
-            },
-            tipo_imovel: selTipo.value.toUpperCase(),
-            
-        };
-        const dados = new FormData();
-        dados.append(
-            "data",
-            new Blob([JSON.stringify(payload)], { type: "application/json" })
-        );
-        arquivos.forEach((f) => dados.append("midia", f));
+        const token = obterToken();
+        if (!token) {
+            alert("Sua sessão expirou. Faça login novamente.");
+            return;
+        }
+        const authHeader = { Authorization: `Bearer ${token}` };
 
         if (btnSubmit) btnSubmit.disabled = true;
         const textoOriginal = btnSubmit?.textContent || "";
         if (btnSubmit) btnSubmit.textContent = "Cadastrando...";
+
         try {
-            const token = obterToken();
-            const h = token ? { Authorization: `Bearer ${token}` } : {};
+            const up = new FormData();
+            arquivos.forEach((f) => up.append("files", f));
+
+            const rUp = await fetch(`${API}/upload`, {
+                method: "POST",
+                headers: authHeader,
+                body: up,
+            });
+            
+            if (!rUp.ok) throw new Error(`Upload das mídias: ${await lerErro(rUp)}`);
+
+            const midias = await rUp.json();
             const resp = await fetch(API_URL, {
                 method: "POST",
-                headers: h,
-                body: dados
+                headers: { ...authHeader, "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    data: {
+                        nome: txtTitulo.value.trim(),
+                        tipo_imovel: selTipo.value,
+                        quartos: Number(selQuartos.value),
+                        banheiros: Number(selBanheiros.value),
+                        metragem: Number(txtMetragem.value),
+                        endereco: {
+                            cidade: selCidade.value,
+                            bairro: txtBairro.value.trim(),
+                            estado: selEstado.value,
+                            logradouro: txtLogradouro.value.trim(),
+                            latitude: Number(inpLat.value),
+                            longitude: Number(inpLng.value),
+                        },
+                        midia: midias.map((m) => m.id),
+                    },
+                }),
             });
-            if (!resp.ok) {
-                const detalhe = await resp.text();
-                throw new Error(`Erro ${resp.status}: ${detalhe}`);
-            }
+            if (!resp.ok) throw new Error(await lerErro(resp));
+
             alert("Imóvel cadastrado com sucesso!");
             limparFormulario();
         } catch (err) {
             console.error(err);
-            alert("Não foi possível cadastrar o imóvel. Tente novamente.");
+            alert(`Não foi possível cadastrar o imóvel: ${err.message}`);
         } finally {
             if (btnSubmit) {
                 btnSubmit.disabled = false;
@@ -341,6 +353,7 @@ export function inicializarCadastroImovel() {
             }
         }
     });
+
     initSelects();
     carregarEstados();
     initMapa();

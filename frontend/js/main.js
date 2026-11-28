@@ -13,6 +13,7 @@ import { inicializarFavoritos } from './favoritos.js';
 import { inicializarContatoEVisitas } from './contato-visitas.js';
 import { inicializarCadastroImovel } from './cadastro-imovel.js';
 import { inicializarCadastroAnuncio } from './cadastro-anuncio.js';
+import { inicializarMeusImoveis } from './meus-imoveis.js';
 
 const elementoMapa = document.getElementById('map');
 const mapDetalhes = document.getElementById('map-detalhes');
@@ -126,6 +127,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   atualizarCabecalhoAuth(usuarioAtual);
   await inicializarFavoritos(usuarioAtual);
   await inicializarContatoEVisitas(usuarioAtual);
+
+  if (paginaAtual === 'imoveis.html') {
+    const anunciante = await protegerPagina({ perfisPermitidos: ['ANUNCIANTE'] });
+    if (!anunciante) return;
+
+    const btnLogoutPainel = document.getElementById('btn-logout-painel');
+    if (btnLogoutPainel) {
+      btnLogoutPainel.addEventListener('click', () => encerrarSessao('./index.html'));
+    }
+    await inicializarMeusImoveis();
+    return;
+  }
 
   const formCadastro = document.getElementById('form-cad');
   if (formCadastro) {
