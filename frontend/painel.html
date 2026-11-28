@@ -10,18 +10,20 @@
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body class="bg-site">
-  <div class="container-fluid">
+<div id="conteudo-painel" class="container-fluid d-none">
   <div class="row min-vh-100">
     <aside class="col-12 col-md-3 col-lg-2 bg-claro border-end p-3 d-flex flex-md-column">
       <a class="navbar-brand fw-bold fs-4 mb-md-4 me-3 me-md-0" href="./index.html">Albergaria</a>
       <nav class="nav nav-pills flex-md-column flex-grow-1">
         <a class="nav-link active bg-success" href="./painel.html">Visão geral</a>
-        <a class="nav-link text-dark" href="#">Meus imóveis</a>
+        <a class="nav-link text-dark" href="./imoveis.html">Meus imóveis</a>
+        <a class="nav-link text-dark" href="./perfil.html">Meu perfil</a>
+        <button type="button" id="btn-logout-painel" class="nav-link text-danger text-start mt-md-auto border-0 bg-transparent">Sair</button>
       </nav>
     </aside>
     <main class="col-12 col-md-9 col-lg-10 p-3 p-md-4">
       <header class="mb-4">
-        <h1 class="h3 fw-bold mb-0">Olá, anunciante!</h1>
+        <h1 id="saudacao-anunciante" class="h3 fw-bold mb-0">Olá, anunciante!</h1>
         <p class="text-secondary">Aqui está um resumo da sua atividade.</p>
       </header>
       <section class="row g-3 mb-4">
@@ -53,43 +55,44 @@
       <section>
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h2 class="h5 fw-bold mb-0">Meus imóveis</h2>
-          <a href="#" class="btn btn-success">Anunciar novo imóvel</a>
+          <a href="./cadastro-imovel.html" class="btn btn-success">Cadastrar Imvóvel</a>
         </div>
 
         <div class="table-responsive bg-white rounded">
           <table class="table table-hover align-middle mb-0">
             <thead>
-              <tr>
-                <th>Título</th>
-                <th>Localização</th>
-                <th>Preço</th>
-                <th>Status</th>
-              </tr>
+            <tr>
+              <th>Título</th>
+              <th>Localização</th>
+              <th>Preço</th>
+              <th>Status</th>
+            </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Apartamento no Centro</td>
-                <td>Quixadá – CE</td>
-                <td>R$ 1.250/mês</td>
-                <td><span class="badge rounded-pill text-bg-success">Ativo</span></td>
-              <tr>
-                <td>Casa no Aeroporto</td>
-                <td>Quixadá – CE</td>
-                <td>R$ 1.800/mês</td>
-                <td><span class="badge rounded-pill text-bg-danger">Indisponível</span></td>
-              </tr>
-              <tr>
-                <td>Kitnet no Planalto</td>
-                <td>Quixadá – CE</td>
-                <td>R$ 700/mês</td>
-                <td><span class="badge rounded-pill text-bg-primary">Alugado</span></td>
-              </tr>
-              <tr>
-                <td>Kitnet no Planalto</td>
-                <td>Quixadá – CE</td>
-                <td>R$ 700/mês</td>
-                <td><span class="badge rounded-pill text-bg-warning">Pausado</span></td>
-              </tr>
+            <tr>
+              <td>Apartamento no Centro</td>
+              <td>Quixadá – CE</td>
+              <td>R$ 1.250/mês</td>
+              <td><span class="badge rounded-pill text-bg-success">Ativo</span></td>
+            </tr>
+            <tr>
+              <td>Casa no Aeroporto</td>
+              <td>Quixadá – CE</td>
+              <td>R$ 1.800/mês</td>
+              <td><span class="badge rounded-pill text-bg-danger">Indisponível</span></td>
+            </tr>
+            <tr>
+              <td>Kitnet no Planalto</td>
+              <td>Quixadá – CE</td>
+              <td>R$ 700/mês</td>
+              <td><span class="badge rounded-pill text-bg-primary">Alugado</span></td>
+            </tr>
+            <tr>
+              <td>Kitnet no Planalto</td>
+              <td>Quixadá – CE</td>
+              <td>R$ 700/mês</td>
+              <td><span class="badge rounded-pill text-bg-warning">Pausado</span></td>
+            </tr>
             </tbody>
           </table>
         </div>
@@ -97,5 +100,8 @@
     </main>
   </div>
 </div>
+ <script type="module" src="./js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </body>
 </html>

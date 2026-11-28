@@ -11,16 +11,23 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
     "quartos": {
       "type": "integer",
+      "required": true,
       "min": 0
     },
     "banheiros": {
       "type": "integer",
+      "required": true,
       "min": 0
     },
     "metragem": {
-      "type": "decimal"
+      "type": "decimal",
+      "required": true
     },
     "midia": {
       "type": "media",
@@ -39,12 +46,29 @@
     },
     "status_imovel": {
       "type": "enumeration",
-      "default": "ATIVO",
+      "default": "DISPONIVEL",
       "enum": [
         "ATIVO",
         "PAUSADO",
         "ALUGADO",
+        "DISPONIVEL",
         "INDISPONIVEL"
+      ]
+    },
+    "tipo_imovel": {
+      "type": "enumeration",
+      "enum": [
+        "APARTAMENTO",
+        "CASA",
+        "CASA EM CONDOMÍNIO",
+        "KITNET / STUDIO",
+        "LOFT",
+        "COBERTURA",
+        "FLAT / APART-HOTEL",
+        "QUARTO / REPÚBLICA",
+        "SALA COMERCIAL",
+        "PONTO COMERCIAL / LOJA",
+        "GALPÃO / DEPÓSITO"
       ]
     },
     "favoritos": {
@@ -57,12 +81,6 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::anunciante.anunciante",
-      "inversedBy": "imovels"
-    },
-    "categoria": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::categoria.categoria",
       "inversedBy": "imovels"
     },
     "anuncios": {

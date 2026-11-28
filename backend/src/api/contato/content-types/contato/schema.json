@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contatos",
+  "info": {
+    "singularName": "contato",
+    "pluralName": "contatos",
+    "displayName": "contato"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "mensagem": {
+      "type": "text",
+      "required": true
+    },
+    "canal": {
+      "type": "enumeration",
+      "default": "MENSAGEM",
+      "enum": [
+        "MENSAGEM",
+        "WHATSAPP",
+        "TELEFONE"
+      ]
+    },
+    "telefone_contato": {
+      "type": "string"
+    },
+    "status_contato": {
+      "type": "enumeration",
+      "default": "NOVO",
+      "enum": [
+        "NOVO",
+        "LIDO",
+        "RESPONDIDO"
+      ]
+    },
+    "usuario": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "imovel": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::imovel.imovel"
+    },
+    "anunciante": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::anunciante.anunciante"
+    }
+  }
+}

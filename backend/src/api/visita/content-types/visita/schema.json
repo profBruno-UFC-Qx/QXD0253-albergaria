@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "visitas",
+  "info": {
+    "singularName": "visita",
+    "pluralName": "visitas",
+    "displayName": "visita"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "data_visita": {
+      "type": "date",
+      "required": true
+    },
+    "horario": {
+      "type": "string",
+      "required": true
+    },
+    "observacoes": {
+      "type": "text"
+    },
+    "telefone_contato": {
+      "type": "string"
+    },
+    "status_visita": {
+      "type": "enumeration",
+      "default": "PENDENTE",
+      "enum": [
+        "PENDENTE",
+        "CONFIRMADA",
+        "RECUSADA",
+        "CANCELADA"
+      ]
+    },
+    "usuario": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "imovel": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::imovel.imovel"
+    },
+    "anunciante": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::anunciante.anunciante"
+    }
+  }
+}
