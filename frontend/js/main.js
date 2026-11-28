@@ -14,6 +14,9 @@ import { inicializarContatoEVisitas } from './contato-visitas.js';
 import { inicializarCadastroImovel } from './cadastro-imovel.js';
 import { inicializarCadastroAnuncio } from './cadastro-anuncio.js';
 import { inicializarMeusImoveis } from './meus-imoveis.js';
+import { inicializarEditarImovel } from './editar-imovel.js';
+import { inicializarPainel } from './painel.js';
+import { inicializarEditarAnuncio } from './editar-anuncio.js';
 
 const elementoMapa = document.getElementById('map');
 const mapDetalhes = document.getElementById('map-detalhes');
@@ -91,9 +94,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (btnLogoutPainel) {
       btnLogoutPainel.addEventListener('click', () => encerrarSessao('./index.html'));
     }
-    inicializarCadastroImovel();
+
+    await inicializarPainel();
     return;
   }
+
   if (paginaAtual === 'cadastro-imovel.html') {
     const anunciante = await protegerPagina({ perfisPermitidos: ['ANUNCIANTE'] });
     if (!anunciante) return;
@@ -137,6 +142,31 @@ document.addEventListener('DOMContentLoaded', async () => {
       btnLogoutPainel.addEventListener('click', () => encerrarSessao('./index.html'));
     }
     await inicializarMeusImoveis();
+    return;
+  }
+
+  if (paginaAtual === 'editar-imovel.html') {
+    const anunciante = await protegerPagina({ perfisPermitidos: ['ANUNCIANTE'] });
+    if (!anunciante) return;
+
+    const btnLogoutPainel = document.getElementById('btn-logout-painel');
+    if (btnLogoutPainel) {
+      btnLogoutPainel.addEventListener('click', () => encerrarSessao('./index.html'));
+    }
+
+    inicializarEditarImovel();
+    return;
+  }
+
+  if (paginaAtual === 'editar-anuncio.html') {
+    const anunciante = await protegerPagina({ perfisPermitidos: ['ANUNCIANTE'] });
+    if (!anunciante) return;
+
+    const btnLogoutPainel = document.getElementById('btn-logout-painel');
+    if (btnLogoutPainel) {
+      btnLogoutPainel.addEventListener('click', () => encerrarSessao('./index.html'));
+    }
+    await inicializarEditarAnuncio();
     return;
   }
 

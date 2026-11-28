@@ -46,10 +46,6 @@
                                     <label for="filtroStatus" class="form-label small fw-semibold mb-1">Status</label>
                                     <select id="filtroStatus" name="status" class="form-select form-select-sm">
                                         <option value="todos">Todos</option>
-                                        <option value="ativo">Ativo</option>
-                                        <option value="indisponivel">Indisponível</option>
-                                        <option value="alugado">Alugado</option>
-                                        <option value="pausado">Pausado</option>
                                     </select>
                                 </div>
 
@@ -62,8 +58,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2 d-flex gap-2">
-                                    <button type="submit" id="btnFiltrar" class="btn btn-sm btn-success flex-grow-1">
-                                        Filtrar </button>
+                                    <button type="button" id="btnLimpar" class="btn btn-sm btn-outline-secondary w-100">Limpar</button>
                                 </div>
 
                             </div>
@@ -76,7 +71,7 @@
                     </a>
                 </div>
                 <div class="table-responsive bg-white rounded">
-                    <table class="table table-hover vh-100">
+                    <table class="table table-hover">
                         <thead>
                             <tr></tr>
                         </thead>

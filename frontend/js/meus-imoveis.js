@@ -2,12 +2,37 @@ import { API, obterToken } from "./auth.js";
 
 const ORIGEM = API.replace(/\/api\/?$/, "");
 const STATUS = {
-    ATIVO: { texto: "Ativo", classe: "text-bg-success", filtro: "ativo" },
-    DISPONIVEL: { texto: "Disponível", classe: "text-bg-success", filtro: "ativo" },
-    INDISPONIVEL: { texto: "Indisponível", classe: "text-bg-danger", filtro: "indisponivel" },
-    ALUGADO: { texto: "Alugado", classe: "text-bg-primary", filtro: "alugado" },
-    PAUSADO: { texto: "Pausado", classe: "text-bg-warning", filtro: "pausado" },
+  ATIVO: { texto: "Ativo", classe: "text-bg-success" },
+  PAUSADO: { texto: "Pausado", classe: "text-bg-warning" },
+  INDISPONIVEL: { texto: "Indisponível", classe: "text-bg-danger" },
+  ALUGADO: { texto: "Alugado", classe: "text-bg-primary" },
+  DISPONIVEL: { texto: "Disponível", classe: "text-bg-secondary" },
 };
+
+function preencherFiltroStatus() {
+    const select = document.getElementById("filtroStatus");
+    if (!select) return;
+
+    const valorAtual = select.value || "todos";
+
+    const contagem = {};
+    for (const imovel of imoveis) {
+        contagem[imovel.status_imovel] = (contagem[imovel.status_imovel] ?? 0) + 1;
+    }
+
+    const opcoes = [
+        criarElemento("option", { text: `Todos (${imoveis.length})`, attrs: { value: "todos" } }),
+        ...Object.entries(STATUS).map(([valor, { texto }]) =>
+            criarElemento("option", {
+                text: `${texto} (${contagem[valor] ?? 0})`,
+                attrs: { value: valor },
+            })
+        ),
+    ];
+
+    select.replaceChildren(...opcoes);
+    select.value = [...select.options].some((o) => o.value === valorAtual) ? valorAtual : "todos";
+}
 
 function formatarPreco(valor) {
     return new Intl.NumberFormat("pt-BR", {
@@ -91,9 +116,9 @@ function criarLinha(imovel) {
 
     const midiaEl = foto
         ? criarElemento("img", {
-              className: "img-tabela",
-              attrs: { src: foto, alt: imovel.nome ?? "" },
-          })
+            className: "img-tabela",
+            attrs: { src: foto, alt: imovel.nome ?? "" },
+        })
         : criarElemento("div", { className: "img-tabela bg-light rounded" });
     const tdFoto = criarElemento("td", {}, [midiaEl]);
 
@@ -184,7 +209,7 @@ function aplicarFiltros(tbody) {
     let lista = imoveis.filter((i) => {
         const texto = `${i.nome ?? ""} ${i.endereco?.bairro ?? ""}`.toLowerCase();
         const okBusca = !busca || texto.includes(busca);
-        const okStatus = status === "todos" || STATUS[i.status_imovel]?.filtro === status;
+        const okStatus = status === "todos" || i.status_imovel === status;
         return okBusca && okStatus;
     });
 
@@ -226,12 +251,18 @@ export async function inicializarMeusImoveis() {
 
         const resposta = await buscarJson(`${API}/imovels?${params}`, token);
         imoveis = resposta.data ?? [];
+        preencherFiltroStatus();
         aplicarFiltros(tbody);
     } catch (err) {
         console.error(err);
         mensagemTabela(tbody, `Não foi possível carregar os imóveis: ${err.message}`);
         return;
     }
+
+    document.getElementById("btnLimpar")?.addEventListener("click", () => {
+        document.getElementById("formFiltros")?.reset();
+        aplicarFiltros(tbody);
+    });
 
     document.getElementById("formFiltros")?.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -240,4 +271,12 @@ export async function inicializarMeusImoveis() {
     document.getElementById("filtroBusca")?.addEventListener("input", () => aplicarFiltros(tbody));
     document.getElementById("filtroStatus")?.addEventListener("change", () => aplicarFiltros(tbody));
     document.getElementById("ordenacao")?.addEventListener("change", () => aplicarFiltros(tbody));
+
+    tbody.addEventListener("click", (e) => {
+        const btnEditar = e.target.closest('button[data-acao="editar"]');
+        if (!btnEditar) return;
+        const id = btnEditar.dataset.id;
+        if (!id) return;
+        window.location.href = `./editar-imovel.html?id=${encodeURIComponent(id)}`;
+    });
 }
